@@ -1,0 +1,25 @@
+# Site content and design history for justingarter.com.
+# Host configuration lives separately at github.com/justin-garter/pi-webserver-ansible
+# and its working copy must stay on a native Linux filesystem in WSL2, not here.
+#
+# PRIVATE repo. It contains the resume PDF, certification PDFs with verification
+# codes, and a headshot. Review each before this ever becomes public.
+
+# --- Never commit ---
+*.key
+*.pem
+*.env
+secrets/
+.htpasswd
+
+# --- Build output, if a generator is ever added ---
+node_modules/
+dist/
+.cache/
+
+# --- OS noise ---
+Thumbs.db
+desktop.ini
+.DS_Store
+*~
+*.swp

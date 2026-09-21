@@ -1,0 +1,655 @@
+/* ==========================================================================
+   DIRECTION 1 — REFINE
+   Same bones as Version 1.4. Rebuilt on a real type scale, an 8px vertical
+   rhythm, and one accent that carries meaning.
+
+   What changed from the current stylesheet, and why:
+   - h1/h2 clamps in v1.4 overlap (h2 could render larger than h1 at narrow
+     widths). Replaced with a single modular scale where h1 > h2 > h3 always.
+   - Monospace was carrying nav, buttons, footer links, and eyebrows. It is
+     now reserved for data only: dates, metric values, technology names,
+     status values. It means something again.
+   - Spacing was four loose tokens. Now a 4/8px scale used everywhere, so
+     every edge in the page lands on the same grid.
+   - Teal/amber accents replaced with one deep forest green + one restrained
+     ochre for "in progress". Green also carries pass/live/verified.
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Inter+Tight:wght@600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+:root {
+  /* ---- Color ------------------------------------------------------------
+     Green is the only accent with semantics: link, live, verified, pass.
+     Ochre is the single exception, and only ever means "in progress".
+     No red anywhere on these pages — it stays reserved for real errors. */
+  --paper:      #FFFFFF;
+  --bg:         #F5F6F8;
+  --ink:        #101418;   /* headings */
+  --ink-body:   #3A424B;   /* prose            10.2:1 on paper */
+  --ink-mute:   #636D78;   /* meta, captions    4.9:1 on --bg  */
+  --line:       #E1E5EA;
+  --line-firm:  #CDD3DA;
+
+  --navy:       #14203A;   /* header / footer ground */
+  --navy-line:  #2C3A57;
+  --on-navy:    #C7D0DE;   /* 10.5:1 on navy */
+
+  --green:      #1D5E3C;   /* 7.7:1 on paper */
+  --green-deep: #164A2F;
+  --green-tint: #EAF3EE;
+  --green-lift: #6FBF8E;   /* green for use on navy — 7.4:1 */
+
+  --ochre:      #8A5A16;   /* 5.1:1 on its own tint */
+  --ochre-tint: #F7EFE2;
+
+  /* ---- Type -------------------------------------------------------------
+     Inter Tight for display, Inter for text: the same skeleton at two
+     optical widths, so headings and body align exactly instead of
+     approximately. IBM Plex Mono for data. */
+  --sans:    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+  --display: 'Inter Tight', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+  --mono:    'IBM Plex Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace;
+
+  /* Modular scale, 1.25. Every step is fixed or clamped so h1 > h2 > h3
+     holds at every viewport width. */
+  --fs-micro: 0.75rem;      /* 12 — mono labels, pills */
+  --fs-small: 0.8125rem;    /* 13 — mono data, captions */
+  --fs-meta:  0.9375rem;    /* 15 — nav, buttons, footer */
+  --fs-body:  1.0625rem;    /* 17 — prose */
+  --fs-lede:  1.1875rem;    /* 19 */
+  --fs-h3:    1.3125rem;    /* 21 */
+  --fs-h2:    clamp(1.5rem, 1.22rem + 1.1vw, 1.875rem);
+  --fs-h1:    clamp(2rem, 1.5rem + 2.2vw, 2.875rem);
+
+  /* ---- Space: one 4px-based scale, used for every gap on the page ------ */
+  --s1: 0.25rem;  --s2: 0.5rem;   --s3: 0.75rem;  --s4: 1rem;
+  --s5: 1.5rem;   --s6: 2rem;     --s7: 3rem;     --s8: 4rem;   --s9: 6rem;
+
+  --page: 1120px;
+  --radius: 4px;
+}
+
+/* --------------------------------------------------------------------------
+   Base
+   -------------------------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink-body);
+  font-family: var(--sans);
+  font-size: var(--fs-body);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--display);
+  color: var(--ink);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  margin: 0;
+  text-wrap: balance;
+}
+h1 { font-size: var(--fs-h1); font-weight: 700; letter-spacing: -0.025em; }
+h2 { font-size: var(--fs-h2); font-weight: 600; }
+h3 { font-size: var(--fs-h3); font-weight: 600; letter-spacing: -0.01em; }
+h4 { font-size: var(--fs-meta); font-weight: 600; }
+
+p { margin: 0; }
+p + p { margin-top: var(--s4); }
+
+a { color: var(--green); text-decoration-thickness: 1px; text-underline-offset: 0.18em; }
+a:hover { color: var(--green-deep); }
+
+img { max-width: 100%; display: block; }
+
+/* Focus: never removed, always 2px, always offset clear of the element.
+   Kept at least as visible as v1.4. */
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+.site-header a:focus-visible,
+.site-footer a:focus-visible { outline-color: var(--green-lift); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  html { scroll-behavior: auto; }
+}
+
+.container {
+  max-width: var(--page);
+  margin: 0 auto;
+  padding: 0 var(--s5);
+}
+@media (min-width: 720px) { .container { padding: 0 var(--s6); } }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+.skip-link {
+  position: absolute; left: var(--s4); top: -3rem;
+  background: var(--paper); color: var(--green);
+  padding: var(--s2) var(--s4); border: 1px solid var(--green);
+  border-radius: var(--radius); z-index: 200;
+  font-size: var(--fs-meta); font-weight: 500;
+}
+.skip-link:focus { top: var(--s4); }
+
+/* --------------------------------------------------------------------------
+   Labels and data
+   The whole typographic argument of this direction sits in these two rules:
+   a LABEL names a thing and is set in the text face; a VALUE is measured or
+   recorded and is set in mono. Nothing is mono for atmosphere.
+   -------------------------------------------------------------------------- */
+.label {
+  display: block;
+  font-family: var(--sans);
+  font-size: var(--fs-micro);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+
+.value, .date, .metric-num, .spec-table td, .stat-caption {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* --------------------------------------------------------------------------
+   Header
+   -------------------------------------------------------------------------- */
+.site-header {
+  background: var(--navy);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.site-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s5);
+  min-height: 64px;
+  padding-top: var(--s3);
+  padding-bottom: var(--s3);
+}
+
+.site-logo {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.0625rem;
+  letter-spacing: -0.02em;
+  color: #fff;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.site-logo span { color: var(--green-lift); }
+
+.site-nav { display: flex; align-items: center; gap: var(--s5); }
+.site-nav > ul {
+  list-style: none; display: flex; align-items: center;
+  gap: var(--s5); margin: 0; padding: 0;
+}
+.site-nav a {
+  color: var(--on-navy);
+  font-size: var(--fs-meta);
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.site-nav a:hover { color: #fff; }
+.site-nav > ul > li > a[aria-current="page"] {
+  color: #fff;
+  padding-bottom: 3px;
+  border-bottom: 2px solid var(--green-lift);
+}
+
+/* CSS-only dropdown — no JS. Opens on hover and on keyboard focus.
+   No gap between trigger and menu: a gap is a dead zone the pointer has to
+   cross and the menu closes underneath it. */
+.has-dropdown { position: relative; }
+.dropdown {
+  display: none;
+  position: absolute; top: 100%; left: calc(-1 * var(--s4));
+  min-width: 292px;
+  list-style: none; margin: 0; padding: var(--s2) 0;
+  background: var(--navy);
+  border: 1px solid var(--navy-line);
+  border-radius: var(--radius);
+  box-shadow: 0 12px 28px rgba(8, 14, 28, 0.35);
+}
+.has-dropdown:hover > .dropdown,
+.has-dropdown:focus-within > .dropdown { display: block; }
+.dropdown a { display: block; padding: var(--s2) var(--s4); font-weight: 400; }
+.dropdown a:hover { background: rgba(255, 255, 255, 0.06); }
+.dropdown a[aria-current="page"] { color: #fff; box-shadow: inset 2px 0 0 var(--green-lift); }
+
+/* --------------------------------------------------------------------------
+   Buttons
+   -------------------------------------------------------------------------- */
+.btn {
+  display: inline-block;
+  font-family: var(--sans);
+  font-size: var(--fs-meta);
+  font-weight: 500;
+  line-height: 1.2;
+  padding: 0.625rem var(--s4);
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.btn-primary { background: var(--green); color: #fff; }
+.btn-primary:hover { background: var(--green-deep); color: #fff; }
+.btn-secondary { background: var(--paper); border-color: var(--line-firm); color: var(--ink); }
+.btn-secondary:hover { border-color: var(--ink); color: var(--ink); background: var(--paper); }
+.btn-ghost { border-color: rgba(199, 208, 222, 0.45); color: #fff; }
+.btn-ghost:hover { border-color: #fff; color: #fff; }
+
+/* --------------------------------------------------------------------------
+   Home hero
+   The photo column is sized so its top edge sits on the h1 cap line and its
+   bottom edge lands on the CTA row baseline — the alignment is the point.
+   -------------------------------------------------------------------------- */
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.6fr);
+  gap: var(--s8);
+  align-items: center;
+  padding: var(--s9) 0 var(--s8);
+}
+.hero h1 { margin: var(--s3) 0 0; max-width: 18ch; }
+.hero .lede {
+  font-size: var(--fs-lede);
+  line-height: 1.55;
+  color: var(--ink-body);
+  max-width: 58ch;
+  margin-top: var(--s5);
+}
+.hero-actions { display: flex; flex-wrap: wrap; gap: var(--s3); margin-top: var(--s6); }
+
+.portrait {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  /* The source is 500x700 with headroom; a centred origin crops the hair. */
+  object-position: center 12%;
+  border-radius: var(--radius);
+  border: 1px solid var(--line-firm);
+  background: var(--paper);
+}
+
+@media (max-width: 880px) {
+  .hero { grid-template-columns: 1fr; gap: var(--s6); padding: var(--s7) 0 var(--s6); }
+  .portrait { max-width: 240px; aspect-ratio: 1 / 1; }
+}
+
+/* Section rule. Carried over from v1.4's node divider because it is doing
+   real work — it marks a change of subject without a heading — but reduced
+   to a hairline and 3px nodes so it stops competing with the content. */
+.rule { margin: 0; height: 9px; overflow: hidden; }
+.rule svg { width: 100%; height: 9px; display: block; }
+.rule line { stroke: var(--line-firm); stroke-width: 1; }
+.rule circle { fill: var(--green); }
+
+/* --------------------------------------------------------------------------
+   Sections
+   -------------------------------------------------------------------------- */
+.section { padding: var(--s8) 0; }
+.section-head { margin-bottom: var(--s6); max-width: 62ch; }
+.section-head h2 { margin-top: var(--s2); }
+.section-head .note {
+  display: block;
+  margin-top: var(--s3);
+  font-size: var(--fs-meta);
+  color: var(--ochre);
+}
+.prose { max-width: 68ch; font-size: var(--fs-body); }
+
+/* --------------------------------------------------------------------------
+   Fact cards (home "at a glance" strip)
+   -------------------------------------------------------------------------- */
+.facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(232px, 1fr));
+  gap: var(--s5);
+}
+.fact {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: var(--s5);
+  display: flex;
+  flex-direction: column;
+}
+.fact ul {
+  list-style: none; margin: var(--s3) 0 0; padding: 0;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.3;
+  color: var(--ink);
+}
+.fact li { padding: var(--s3) 0; border-bottom: 1px solid var(--line); }
+.fact li:last-child { border-bottom: 0; padding-bottom: 0; }
+.fact .stat-caption {
+  margin-top: auto;
+  padding-top: var(--s4);
+  font-size: var(--fs-small);
+  color: var(--ink-mute);
+}
+.fact .fact-link { margin-top: auto; padding-top: var(--s4); font-size: var(--fs-meta); }
+
+/* --------------------------------------------------------------------------
+   Project cards
+   Order is media → status → title → summary → stack → link. v1.4 put the
+   stack tags above the title, which made every card open on the same grey
+   pills instead of on the thing that distinguishes it.
+   -------------------------------------------------------------------------- */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(288px, 1fr));
+  gap: var(--s5);
+}
+.card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.card-media {
+  aspect-ratio: 16 / 9;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+.card-media img { width: 100%; height: 100%; object-fit: cover; }
+.card-media .logos {
+  display: flex; align-items: center; justify-content: center;
+  gap: var(--s6); padding: var(--s5); width: 100%;
+}
+.card-media .logos img { width: auto; height: 40px; max-width: 76px; object-fit: contain; }
+
+/* Empty state for a project whose write-up is not finished. It reads as a
+   deliberately reserved slot, not as a broken image. */
+.card-media.is-empty {
+  border-bottom-style: dashed;
+  border-bottom-color: var(--line-firm);
+  color: var(--ink-mute);
+  font-size: var(--fs-meta);
+}
+
+.card-body { padding: var(--s5); display: flex; flex-direction: column; gap: var(--s3); flex: 1; }
+.card-body h3 { margin: 0; }
+.card-body p { color: var(--ink-body); font-size: 1rem; }
+.card-body p.pending { color: var(--ink-mute); }
+.card-body .card-link { margin-top: auto; padding-top: var(--s2); font-size: var(--fs-meta); font-weight: 500; }
+
+.meta-row { display: flex; align-items: center; flex-wrap: wrap; gap: var(--s3); }
+
+/* --------------------------------------------------------------------------
+   Status pills and data chips
+   -------------------------------------------------------------------------- */
+.pill {
+  display: inline-flex; align-items: center; gap: 0.4em;
+  font-family: var(--mono);
+  font-size: var(--fs-micro);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  padding: 0.2rem 0.5rem;
+  border-radius: 3px;
+  background: var(--green-tint);
+  color: var(--green);
+}
+.pill::before {
+  content: '';
+  width: 6px; height: 6px; border-radius: 50%;
+  background: currentColor;
+}
+.pill.is-progress { background: var(--ochre-tint); color: var(--ochre); }
+.date { font-size: var(--fs-small); color: var(--ink-mute); }
+
+.tags { display: flex; flex-wrap: wrap; gap: var(--s2); margin: 0; padding: 0; list-style: none; }
+.tags li {
+  font-family: var(--mono);
+  font-size: var(--fs-micro);
+  color: var(--ink-mute);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  padding: 0.15rem 0.45rem;
+  border-radius: 3px;
+}
+
+/* --------------------------------------------------------------------------
+   Project page
+   -------------------------------------------------------------------------- */
+.page-hero { padding: var(--s7) 0 var(--s6); }
+.back-link {
+  display: inline-block;
+  font-size: var(--fs-meta);
+  font-weight: 500;
+  margin-bottom: var(--s5);
+}
+.page-hero h1 { margin: var(--s3) 0 0; max-width: 20ch; }
+.page-hero .lede {
+  font-size: var(--fs-lede);
+  line-height: 1.55;
+  max-width: 62ch;
+  margin-top: var(--s5);
+}
+.page-hero .meta-row { margin-top: var(--s5); }
+.page-hero .tags { margin-top: var(--s4); }
+
+.figure { margin: 0; }
+.figure img {
+  width: 100%;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.legend {
+  display: flex; flex-wrap: wrap; gap: var(--s5);
+  margin-top: var(--s4);
+  font-family: var(--mono);
+  font-size: var(--fs-small);
+  color: var(--ink-mute);
+}
+.legend span { display: inline-flex; align-items: center; gap: var(--s2); }
+.legend i { width: 28px; height: 4px; border-radius: 2px; display: inline-block; }
+
+/* Technology stack: the three logos, then the actual specification as a
+   two-column table. v1.4 had the heading "Technologies Used" over three
+   logos, which named far less than the page goes on to describe. */
+.stack {
+  display: flex; flex-wrap: wrap; gap: var(--s7);
+  margin: var(--s5) 0 var(--s6);
+}
+.stack figure {
+  margin: 0; display: flex; flex-direction: column; align-items: center; gap: var(--s2);
+  font-size: var(--fs-small); color: var(--ink-mute);
+}
+.stack img { height: 44px; width: auto; }
+
+.spec-table {
+  width: 100%;
+  /* separate + zero spacing rather than collapse, so the 4px corner radius
+     on the table actually renders instead of being squared off by the
+     collapsed cell borders */
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: var(--fs-meta);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.spec-table th, .spec-table td {
+  text-align: left;
+  padding: var(--s3) var(--s4);
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+.spec-table tr:last-child th, .spec-table tr:last-child td { border-bottom: 0; }
+.spec-table th {
+  font-family: var(--sans);
+  font-weight: 600;
+  color: var(--ink-mute);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  width: 34%;
+  white-space: nowrap;
+}
+.spec-table td { color: var(--ink); font-size: var(--fs-small); }
+
+/* Data figures dropped into the prose column. Numbers appear here for the
+   scan and stay in the paragraphs for the argument. */
+.data {
+  margin: var(--s6) 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+  overflow: hidden;
+}
+.data caption, .data .data-head {
+  caption-side: top;
+  text-align: left;
+  padding: var(--s3) var(--s4);
+  border-bottom: 1px solid var(--line);
+  background: var(--bg);
+  font-family: var(--sans);
+  font-size: var(--fs-micro);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+table.data { width: 100%; border-collapse: separate; border-spacing: 0; }
+table.data caption { border-radius: var(--radius) var(--radius) 0 0; }
+table.data th, table.data td {
+  padding: var(--s3) var(--s4);
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+}
+table.data thead th {
+  font-family: var(--sans);
+  font-size: var(--fs-micro);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+table.data tbody th {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: var(--fs-meta);
+  color: var(--ink-body);
+}
+table.data td {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--fs-small);
+  color: var(--ink);
+  white-space: nowrap;
+}
+table.data td.is-after { color: var(--green); font-weight: 500; }
+table.data tr:last-child th, table.data tr:last-child td { border-bottom: 0; }
+
+.ceilings { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+.ceiling { padding: var(--s4); border-right: 1px solid var(--line); }
+.ceiling:last-child { border-right: 0; }
+.ceiling .metric-num {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.1;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+}
+.ceiling .metric-label { display: block; margin-top: var(--s2); font-size: var(--fs-meta); color: var(--ink-body); }
+.ceiling .metric-sub { display: block; margin-top: var(--s1); font-family: var(--mono); font-size: var(--fs-micro); color: var(--ink-mute); }
+@media (max-width: 620px) {
+  .ceiling { border-right: 0; border-bottom: 1px solid var(--line); }
+  .ceiling:last-child { border-bottom: 0; }
+}
+
+.project-body h2 { margin: var(--s8) 0 var(--s4); }
+.project-body h2:first-child { margin-top: 0; }
+
+/* --------------------------------------------------------------------------
+   Footer
+   -------------------------------------------------------------------------- */
+.site-footer {
+  background: var(--navy);
+  color: var(--on-navy);
+  margin-top: var(--s9);
+  padding: var(--s8) 0 var(--s6);
+  font-size: var(--fs-meta);
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(196px, 1fr));
+  gap: var(--s6);
+}
+.site-footer h2 {
+  color: #fff;
+  font-size: var(--fs-micro);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-family: var(--sans);
+  margin-bottom: var(--s3);
+}
+.site-footer .footer-name { font-family: var(--display); font-size: 1.0625rem; color: #fff; letter-spacing: -0.02em; }
+.site-footer ul { list-style: none; margin: 0; padding: 0; }
+.site-footer li { margin-bottom: var(--s2); }
+.site-footer a { color: var(--on-navy); text-decoration: none; }
+.site-footer a:hover { color: #fff; text-decoration: underline; }
+.footer-bottom {
+  margin-top: var(--s7);
+  padding-top: var(--s4);
+  border-top: 1px solid var(--navy-line);
+  font-size: var(--fs-small);
+  color: #8B96AA;
+}
+
+/* --------------------------------------------------------------------------
+   Narrow screens
+   The nav wraps to a second row rather than collapsing behind a toggle, so
+   no JavaScript is involved in reaching any page. Sub-menu items are
+   suppressed here; they are all reachable from their section landing page.
+   -------------------------------------------------------------------------- */
+@media (max-width: 900px) {
+  .site-header { position: static; }
+  .site-header .container { flex-wrap: wrap; gap: var(--s3); }
+  .site-nav { flex-basis: 100%; order: 3; gap: var(--s4); }
+  .site-nav > ul { flex-wrap: wrap; gap: var(--s4); }
+  .dropdown { display: none !important; }
+  /* The resume button stays visible at every width — it is the single most
+     likely thing a recruiter came here to press. */
+  .section { padding: var(--s7) 0; }
+}
+
+@media print {
+  .site-header, .site-footer, .skip-link, .hero-actions, .back-link { display: none; }
+  body { background: #fff; font-size: 11pt; }
+  a { color: #000; }
+  .card, .fact, .data, .spec-table { break-inside: avoid; }
+}

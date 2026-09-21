@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects - Justin Garter</title>
+  <meta name="description" content="Hands-on networking, security, and infrastructure projects - a self-hosted web server, a Klipper printer rebuild and LAN security assessment, and an in-progress home lab.">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" href="favicon-32.png" type="image/png">
+  <link rel="apple-touch-icon" href="favicon-180.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="container">
+    <a class="site-logo" href="/">Justin<span>.Garter</span></a>
+    <nav class="site-nav" aria-label="Primary">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li class="has-dropdown">
+          <a href="projects" aria-current="page">Projects</a>
+          <ul class="dropdown">
+            <li><a href="home-lab">Home Lab Environment</a></li>
+            <li><a href="self-hosted-portfolio">Self-Hosted Personal Portfolio</a></li>
+            <li><a href="klipper-monitoring">3D Printer Remote Management &amp; Optimization</a></li>
+          </ul>
+        </li>
+        <li><a href="skills">Skills &amp; Certifications</a></li>
+        <li><a href="experience">Experience</a></li>
+        <li class="has-dropdown">
+          <a href="year-in-review">Honors Portfolio</a>
+          <ul class="dropdown">
+            <li><a href="year-in-review">Year-in-Review</a></li>
+            <li><a href="honors-experiences">Honors Experiences</a></li>
+            <li><a href="gateway">Gateway</a></li>
+          </ul>
+        </li>
+      </ul>
+      <a class="btn btn-ghost" href="JustinGarterResume.pdf" download>Resume ↓</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="band band-page">
+    <div class="container">
+      <span class="eyebrow">// Projects</span>
+      <h1>Technical Projects</h1>
+      <p class="lede">
+        Working toward a career in networking, systems, and infrastructure -
+        with a cybersecurity mindset - built by applying networking and
+        security fundamentals to real infrastructure instead of only
+        coursework.
+      </p>
+    </div>
+  </section>
+
+  <section class="container straddle">
+    <h2 class="sr-only">All projects</h2>
+    <div class="card-grid">
+
+      <!-- No write-up exists yet, so this is a reserved slot rather than
+           filler copy that would imply finished work. -->
+      <article class="project-card is-progress">
+        <div class="card-media is-empty">[ diagram pending ]</div>
+        <div class="card-body">
+          <h3>Home Lab Environment</h3>
+          <p class="pending">Write-up in progress.</p>
+          <p class="more"><a href="home-lab">View project →</a></p>
+        </div>
+        <div class="card-meta">
+          <span class="status-pill in-progress">In Progress</span>
+          <span class="project-date">July 2026 - Present</span>
+        </div>
+      </article>
+
+      <article class="project-card">
+        <div class="card-media">
+          <div class="logo-grid">
+            <img src="Raspberry_Pi_Logo.svg" alt="Raspberry Pi">
+            <img src="Caddyserver_logo.png" alt="Caddy">
+            <img src="wireguard.png" alt="WireGuard">
+          </div>
+        </div>
+        <div class="card-body">
+          <h3>Self-Hosted Personal Portfolio</h3>
+          <p>This site, self-hosted on a Raspberry Pi in an isolated network segment, with automatic HTTPS, DDNS, and VPN-based management. Live at justingarter.com.</p>
+          <p class="more"><a href="self-hosted-portfolio">View project →</a></p>
+        </div>
+        <div class="card-meta">
+          <span class="status-pill">Live</span>
+          <span class="project-date">July 2026 - Present</span>
+          <ul class="tag-row">
+            <li>Reverse Proxy</li>
+            <li>VLAN/DMZ</li>
+            <li>Ansible</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="project-card">
+        <div class="card-media">
+          <img src="lucky-cat-front.jpg" alt="Three 3D-printed lucky cat models side by side: the white original from the stock machine, and two red prints from the rebuilt one">
+        </div>
+        <div class="card-body">
+          <h3>3D Printer Remote Management &amp; Optimization</h3>
+          <p>An Ender 3 V2 rebuilt on Klipper and driven from a browser over HTTPS. A LAN assessment found its control API reachable without credentials - now closed at two layers.</p>
+          <p class="more"><a href="klipper-monitoring">View project →</a></p>
+        </div>
+        <div class="card-meta">
+          <span class="status-pill">Phase 1 Complete</span>
+          <span class="project-date">July 2026 - Present</span>
+          <ul class="tag-row">
+            <li>Klipper</li>
+            <li>Security Assessment</li>
+          </ul>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <div class="container section">
+    <div class="node-divider" aria-hidden="true">
+      <svg viewBox="0 0 1200 24" preserveAspectRatio="none" focusable="false">
+        <line x1="0" y1="12" x2="1200" y2="12" vector-effect="non-scaling-stroke" />
+        <circle cx="4" cy="12" r="4" /><circle cx="300" cy="12" r="4" />
+        <circle cx="600" cy="12" r="4" /><circle cx="900" cy="12" r="4" />
+        <circle cx="1196" cy="12" r="4" />
+      </svg>
+    </div>
+  </div>
+
+  <section class="container section">
+    <div class="section-heading">
+      <span class="eyebrow">Skills in practice</span>
+      <h2>Where these show up on the skills page</h2>
+    </div>
+    <div class="prose">
+      <p>
+        Each finished project here backs specific, arrow-marked entries on
+        <a href="skills">Skills &amp; Certifications</a>: the self-hosted
+        portfolio covers VLAN segmentation, DMZ isolation, firewall policy,
+        WireGuard VPN, DNS/TLS reverse proxying, systemd automation, and
+        Ansible-driven infrastructure as code, while the Klipper rebuild
+        covers LAN security assessment and host hardening.
+      </p>
+      <p>
+        The arrow next to a skill on that page means it was applied here, not
+        only studied - that's the project to open if you want to see it in
+        context.
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <p class="footer-name">Justin Garter</p>
+        <p>Cincinnati, Ohio</p>
+      </div>
+      <div>
+        <h2>Contact</h2>
+        <ul>
+          <li><a href="mailto:garterjn@outlook.com">garterjn@outlook.com</a></li>
+          <li><a href="tel:+15139000056">(513) 900-0056</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Links</h2>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/justin-garter/">LinkedIn</a></li>
+          <li><a href="https://github.com/justin-garter/Navigation">GitHub</a></li>
+          <li><a href="JustinGarterResume.pdf" download>Resume (PDF)</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="footer-bottom">© 2026 Justin Garter · Technical Portfolio · IT &amp; Cybersecurity, University of Cincinnati</p>
+  </div>
+</footer>
+
+</body>
+</html>

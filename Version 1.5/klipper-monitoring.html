@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D Printer Remote Management &amp; Optimization - Justin Garter</title>
+  <meta name="description" content="An Ender 3 V2 rebuilt on Klipper and driven over HTTPS. A LAN security assessment found the control API reachable without credentials - closed at two layers.">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" href="favicon-32.png" type="image/png">
+  <link rel="apple-touch-icon" href="favicon-180.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="container">
+    <a class="site-logo" href="index.html">Justin<span>.Garter</span></a>
+    <nav class="site-nav" aria-label="Primary">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li class="has-dropdown">
+          <a href="projects.html" aria-current="page">Projects</a>
+          <ul class="dropdown">
+            <li><a href="home-lab.html">Home Lab Environment</a></li>
+            <li><a href="self-hosted-portfolio.html">Self-Hosted Personal Portfolio</a></li>
+            <li><a href="klipper-monitoring.html" aria-current="page">3D Printer Remote Management &amp; Optimization</a></li>
+          </ul>
+        </li>
+        <li><a href="skills.html">Skills &amp; Certifications</a></li>
+        <li><a href="experience.html">Experience</a></li>
+        <li class="has-dropdown">
+          <a href="year-in-review.html">Honors Portfolio</a>
+          <ul class="dropdown">
+            <li><a href="year-in-review.html">Year-in-Review</a></li>
+            <li><a href="honors-experiences.html">Honors Experiences</a></li>
+            <li><a href="gateway.html">Gateway</a></li>
+          </ul>
+        </li>
+      </ul>
+      <a class="btn btn-ghost" href="JustinGarterResume.pdf" download>Resume ↓</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="band band-page">
+    <div class="container">
+      <a class="back-link" href="projects.html">← All Projects</a>
+      <span class="eyebrow">// Security &amp; Systems</span>
+      <h1>3D Printer Remote Management &amp; Optimization</h1>
+      <p class="lede">
+        A Raspberry Pi 5 running Klipper turns a converted Ender 3 V2 into a
+        printer I can drive, watch, and queue jobs on from a browser. Putting
+        it online also turned an offline appliance into a network-facing
+        server, so it got the same security assessment I would give any host at
+        work - and that assessment found a gap I had built myself. The second
+        half of the project was re-measuring every print setting on the machine
+        instead of copying numbers off a forum.
+      </p>
+      <div class="meta-row">
+        <span class="status-pill">Phase 1 Complete</span>
+        <span class="project-date">July 2026 - Present</span>
+      </div>
+      <ul class="tag-row">
+        <li>Klipper</li>
+        <li>Security Assessment</li>
+        <li>Reverse Proxy</li>
+        <li>Host Hardening</li>
+        <li>Home Network</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="container straddle">
+    <h2 class="sr-only">The rebuilt machine</h2>
+    <figure class="plate">
+      <img src="justin_ender3-v2.jpg" alt="The rebuilt Ender 3 V2 with a direct-drive extruder, spring steel bed, ring light, and the Raspberry Pi 5 control server beside it">
+    </figure>
+  </section>
+
+  <section class="container section">
+    <div class="section-heading">
+      <span class="eyebrow">Host and stack</span>
+      <h2>Control Stack</h2>
+    </div>
+
+    <table class="spec-table">
+      <caption class="sr-only">Control stack specification</caption>
+      <tbody>
+        <tr><th scope="row">Printer</th>        <td>Creality Ender 3 V2 · converted from Marlin</td></tr>
+        <tr><th scope="row">Control host</th>   <td>Raspberry Pi 5 · MainsailOS on Debian 13</td></tr>
+        <tr><th scope="row">Motion</th>         <td>Klipper · motion planning moved off the 8-bit board</td></tr>
+        <tr><th scope="row">API layer</th>      <td>Moonraker · bound to loopback</td></tr>
+        <tr><th scope="row">Interface</th>      <td>Mainsail · browser client, no server-side logic</td></tr>
+        <tr><th scope="row">Edge</th>           <td>Caddy reverse proxy · HTTPS with enforced login</td></tr>
+        <tr><th scope="row">Firewall</th>       <td>Default-deny host firewall</td></tr>
+        <tr><th scope="row">Extruder</th>       <td>Metal direct-drive</td></tr>
+        <tr><th scope="row">Bed</th>            <td>PEI-coated spring steel on stiffer springs</td></tr>
+        <tr><th scope="row">Bed leveling</th>   <td>BLTouch probe · replaced manual leveling</td></tr>
+        <tr><th scope="row">Patching</th>       <td>Unattended security updates · automatic reboot disabled</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="container section project-body">
+
+    <h2>Overview</h2>
+    <div class="prose">
+      <p>
+        Converting an Ender 3 V2 from Marlin to Klipper moves motion planning
+        off the printer's 8-bit control board and onto a Raspberry Pi. That is
+        what makes remote operation possible - a web interface for starting and
+        canceling jobs, a live camera feed, status I can check without standing
+        over the machine - and it is also what makes input shaping, pressure
+        advance, and high acceleration possible at all. The tradeoff is that a
+        machine which used to be an offline appliance becomes a server running
+        continuously on my home network, with real hardware behind it.
+      </p>
+      <p>
+        The control side is a Raspberry Pi 5 running MainsailOS on Debian 13:
+        Klipper for motion, Moonraker as the API layer, Mainsail as the browser
+        interface, and a Caddy reverse proxy in front providing HTTPS and an
+        enforced login.
+      </p>
+    </div>
+
+    <h2>Networking &amp; Remote Management</h2>
+    <div class="prose">
+      <p>
+        Before publishing anything about this, I assessed the box the way I
+        would approach a host at work, scoped to a LAN-only threat model: the
+        adversary is a device already on the home Wi-Fi, not the open internet.
+        I worked from two vantage points - on the host, inventorying listening
+        sockets and reading every service config; and from a separate laptop on
+        the same subnet, probing only the advertised ports with no credentials.
+        That second half is what makes it an assessment rather than a config
+        review. Config tells you what is intended; probing tells you what is
+        reachable.
+      </p>
+      <p>
+        <strong>The finding was not a default I had left switched on.</strong>
+        I had already put a TLS reverse proxy with enforced authentication in
+        front of the web interface. The problem was that the authentication
+        protected the interface while leaving the control API exposed alongside
+        it. Mainsail is a JavaScript application running in the browser with no
+        server-side logic of its own - clicking "home the printer" makes the
+        browser call the API directly, and that API was listening outside the
+        proxy entirely.
+      </p>
+      <p>
+        The reason it happened is the part worth writing down, because it is a
+        mistake that looks like security. The reasoning was "the web interface
+        has a login, therefore the printer is protected." But the login sits in
+        front of the page, and the page is just a client. Authentication has to
+        sit in front of the thing that performs the action, not the thing that
+        displays the buttons. On a 3D printer that is a physical-safety
+        question as much as a data one - the same endpoint drives heaters and
+        motion.
+      </p>
+    </div>
+
+    <div class="data-block">
+      <p class="data-head">Assessment findings and remediation</p>
+      <div class="table-scroll">
+        <table class="dtable">
+          <thead>
+            <tr><th scope="col">Finding</th><th scope="col">Remediation</th><th scope="col">State</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Control API reachable on the LAN without credentials</th>
+              <td class="method">Default-deny host firewall, then the durable fix: API rebound to loopback so the exposure does not exist to be filtered</td>
+              <td><span class="status-pill">Closed - retested from a separate host</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Host fingerprint disclosed alongside the API</th>
+              <td class="method">Disclosure removed in the same hardening pass</td>
+              <td><span class="status-pill">Closed</span></td>
+            </tr>
+            <tr>
+              <th scope="row">No automatic security patching</th>
+              <td class="method">Unattended upgrades enabled for the base OS, automatic reboot disabled because this host runs multi-hour jobs</td>
+              <td><span class="status-pill">Closed - base OS only</span></td>
+            </tr>
+            <tr>
+              <th scope="row">UPnP active on the gateway</th>
+              <td class="method">Queried the gateway the way an application would; it answered. Nothing is forwarded today, but the mechanism is live</td>
+              <td><span class="status-pill in-progress">Accepted risk</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="prose">
+      <p>
+        Remediation went in two layers, and I verified how the interface
+        actually reached the API before changing anything - assuming a
+        relationship I had not checked is what created the gap in the first
+        place. Layer one was a default-deny host firewall. Layer two was the
+        durable fix: rebinding the API to loopback so the exposure does not
+        exist to be filtered. A firewall filters packets in front of a socket
+        that is still listening everywhere, and one disabled firewall or one
+        rebuild puts it back. Retesting from the same laptop confirmed the
+        exposure was gone and that the web interface and SSH both still worked.
+      </p>
+      <p>
+        The same pass added unattended security patching, with automatic reboot
+        deliberately disabled because this host runs multi-hour print jobs, and
+        it closed a host-fingerprint disclosure that had been served alongside
+        the API. Reading the patching tool's dry-run output showed it excludes
+        the reverse proxy's own repository - the one component terminating TLS.
+        I left that exclusion in place on purpose, since unattended-upgrading
+        the proxy risks breaking the only authenticated way in with nobody
+        watching, but "I enabled automatic updates" would have been a
+        misleading thing to write down. The automation covers the base OS and
+        nothing else.
+      </p>
+      <p>
+        One accepted risk, stated plainly: the whole assessment rests on
+        nothing here being reachable from the internet. The router's forwarding
+        table was empty, but UPnP lets an application ask the router to open a
+        port for itself with no approval step, and mappings made that way do
+        not reliably appear in that table. I queried the gateway the way an
+        application would, and it answered. Nothing is forwarded today, but the
+        mechanism is live - a risk I have accepted knowingly rather than one I
+        failed to find.
+      </p>
+    </div>
+
+    <h2>Printer Optimization</h2>
+    <div class="prose">
+      <p>
+        The mechanical rebuild replaced the parts that limit what calibration
+        can reach: a metal direct-drive extruder, a BLTouch probe replacing
+        manual bed leveling, and PEI-coated spring steel on stiffer springs
+        replacing the glass plate. Every value in the two print profiles was
+        then measured on this machine rather than copied off a forum - input
+        shaping with an accelerometer on both axes, with Y the binding axis
+        because on a bed-slinger the entire heated bed is the moving mass.
+      </p>
+      <p>
+        <strong>The most useful thing calibration taught me was that I had been
+        measuring in the wrong unit.</strong> The Speed profile's inner wall
+        speed is 200 mm/s against Quality's 160, which looks like a small
+        difference until you convert to material rate: at a 0.20mm layer
+        instead of 0.12mm the cross-section is 67% larger, so the same nozzle
+        deposits 18 mm&sup3;/s instead of 8.64. Millimetres per second measures
+        nozzle motion; cubic millimetres per second determines print time. The
+        binding constraint on this printer is not motion, it is melt rate - and
+        raising the nozzle temperature lifted the flow ceiling by 50% with no
+        hardware involved.
+      </p>
+    </div>
+
+    <div class="data-block">
+      <p class="data-head">Print profiles - measured on this machine, not copied</p>
+      <div class="table-scroll">
+        <table class="dtable">
+          <thead>
+            <tr><th scope="col">Measurement</th><th scope="col">Speed</th><th scope="col">Quality</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Inner wall speed</th>  <td class="num">200 mm/s</td>   <td class="num">160 mm/s</td></tr>
+            <tr><th scope="row">Layer height</th>      <td class="num">0.20 mm</td>    <td class="num">0.12 mm</td></tr>
+            <tr><th scope="row">Material rate</th>     <td class="num">18 mm&sup3;/s</td>   <td class="num">8.64 mm&sup3;/s</td></tr>
+            <tr><th scope="row">Print time</th>        <td class="num">1h 02m</td>     <td class="num">2h 18m</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <figure class="figure">
+      <img src="lucky-cat-45.jpg" alt="Three printed lucky cat models at a 45 degree angle: the white original from the stock setup, and two red prints from the rebuilt machine using the Speed and Quality profiles">
+      <figcaption>
+        Same model, three prints. Left: the original, printed on the stock
+        machine before the project. Center and right: the Speed preset at
+        1h02m and the Quality preset at 2h18m on the rebuilt machine.
+      </figcaption>
+    </figure>
+
+    <div class="photo-grid">
+      <figure>
+        <img src="lucky-cat-front.jpg" alt="The three lucky cat prints viewed from the front">
+        <figcaption>Front</figcaption>
+      </figure>
+      <figure>
+        <img src="lucky-cat-left.jpg" alt="The three lucky cat prints viewed from the left">
+        <figcaption>Left</figcaption>
+      </figure>
+      <figure>
+        <img src="lucky-cat-right.jpg" alt="The three lucky cat prints viewed from the right">
+        <figcaption>Right</figcaption>
+      </figure>
+      <figure>
+        <img src="lucky-cat-back.jpg" alt="The three lucky cat prints viewed from the back, showing the vertical seam on the original">
+        <figcaption>Back</figcaption>
+      </figure>
+      <figure>
+        <img src="lucky-cat-top.jpg" alt="The three lucky cat prints viewed from above">
+        <figcaption>Top</figcaption>
+      </figure>
+    </div>
+    <p class="caption-note">
+      The same three prints from five angles. The back view is the clearest -
+      the original has a vertical seam running up it that neither new print
+      has.
+    </p>
+
+    <div class="prose">
+      <p>
+        Quality gives smoother curves, finer detail, and better overhangs at
+        2.23 times the Speed preset's print time - inside the 2.5x ceiling I
+        set as a requirement before tuning began rather than discovered
+        afterward. One honest caveat: the original is white and both new prints
+        are red. White scatters light and hides layer lines while red shows
+        every one, so at some angles the original arguably reads smoother. That
+        understates the improvement rather than overstating it, and both cats
+        are queued for a reprint in white to remove the variable. Acceptance
+        was a full-scale 3DBenchy, deliberately full-scale because a half-scale
+        model puts several features below the retraction threshold and silently
+        invalidates the test.
+      </p>
+      <p>
+        <strong>Two diagnoses were worth more than the numbers.</strong>
+        First-layer roughness appeared in fixed patches of the bed on every
+        print. I eliminated five hypotheses in order, including raising the
+        probe grid density, which changed nothing - because the probe measures
+        height, not surface condition. The cause was physical damage to the
+        plate's coating: a worn patch sits at the correct height but has
+        different surface energy, so plastic wets it differently and no amount
+        of probing corrects for that. Separately, the Quality profile tested
+        <em>worse</em> on overhangs than Speed, which made no sense until I
+        found the slicer's overhang cooling threshold - it engages relative to
+        extrusion width, so thinner layers need a steeper angle to trigger it.
+        Speed had not overhung better; its thicker layers had simply tripped
+        the detection earlier. Both are the same lesson: an anomalous result is
+        usually measuring something other than what you think it is.
+      </p>
+    </div>
+
+    <h2>Phase 2</h2>
+    <div class="prose">
+      <p>
+        Phase 1 is complete, with one hardware fault still open and documented -
+        an intermittent controller disconnect I have narrowed but not closed.
+        Queued next, in priority order: a high-flow nozzle, the only lever that
+        raises the melt ceiling now binding the machine; a dual-Z kit, the
+        actual fix for the Z banding I diagnosed and then accepted rather than
+        papered over; and a part cooling duct, the best quality-per-dollar
+        change available. Several of these invalidate calibration values that
+        depend on them, so they need batching rather than installing one at a
+        time.
+      </p>
+    </div>
+
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <p class="footer-name">Justin Garter</p>
+        <p>Kings Mills, Ohio</p>
+      </div>
+      <div>
+        <h2>Contact</h2>
+        <ul>
+          <li><a href="mailto:garterjn@outlook.com">garterjn@outlook.com</a></li>
+          <li><a href="tel:+15139000056">(513) 900-0056</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Links</h2>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/justin-garter/">LinkedIn</a></li>
+          <li><a href="https://github.com/justin-garter/Navigation">GitHub</a></li>
+          <li><a href="JustinGarterResume.pdf" download>Resume (PDF)</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="footer-bottom">© 2026 Justin Garter · Technical Portfolio · IT &amp; Cybersecurity, University of Cincinnati</p>
+  </div>
+</footer>
+
+</body>
+</html>

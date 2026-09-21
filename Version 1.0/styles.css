@@ -1,0 +1,665 @@
+/* ==========================================================================
+   PORTFOLIO TEMPLATE — SHARED STYLESHEET
+   Structural skeleton only. No real content is styled here yet —
+   this file exists so the layout can be reviewed before real copy,
+   photos, and project detail go in.
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  /* Color tokens */
+  --bg:        #F7F8FA;   /* page background */
+  --surface:   #FFFFFF;   /* card / panel background */
+  --ink:       #111827;   /* primary text */
+  --ink-soft:  #4B5563;   /* secondary text */
+  --navy:      #16233F;   /* header / footer / primary accent */
+  --navy-soft: #2A3B5F;   /* hover state on navy */
+  --teal:      #0E7C86;   /* interactive accent — links, active nav, node lines */
+  --amber:     #C77D2E;   /* status accent — "in progress", highlights */
+  --line:      #E2E5EA;   /* borders / dividers */
+  --line-dark: #33415E;   /* borders on dark surfaces */
+
+  /* Type tokens */
+  --font-display: 'Sora', sans-serif;
+  --font-body:    'Inter', sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
+
+  /* Layout tokens */
+  --page-max: 1120px;
+  --radius: 6px;
+  --gap-sm: 0.75rem;
+  --gap-md: 1.5rem;
+  --gap-lg: 3rem;
+  --gap-xl: 5rem;
+}
+
+/* --------------------------------------------------------------------------
+   Reset / base
+   -------------------------------------------------------------------------- */
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.2;
+  margin: 0 0 var(--gap-sm);
+  color: var(--navy);
+}
+
+h1 { font-size: clamp(1.35rem, 2.8vw, 2.25rem); font-weight: 700; }
+h2 { font-size: clamp(1.5rem, 3vw, 2rem); }
+h3 { font-size: 1.25rem; }
+
+p { margin: 0 0 var(--gap-sm); color: var(--ink-soft); }
+
+a {
+  color: var(--teal);
+  text-decoration: none;
+}
+a:hover { text-decoration: underline; }
+
+img { max-width: 100%; display: block; }
+
+/* Visible keyboard focus everywhere — accessibility floor */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+  html { scroll-behavior: auto; }
+}
+
+.container {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Small mono "eyebrow" label — used above section headings and on tags.
+   Ties the technical/networking subject matter into the type system
+   instead of decorating with generic icons. */
+.eyebrow {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 0.5rem;
+}
+
+/* --------------------------------------------------------------------------
+   Signature element: network path divider.
+   A row of nodes connected by a line — a nod to traceroute / topology
+   diagrams. Used sparingly between major sections, never decorative
+   filler on every boundary.
+   -------------------------------------------------------------------------- */
+.node-divider {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin: var(--gap-lg) 0;
+  height: 1px;
+}
+.node-divider svg { width: 100%; height: 24px; display: block; }
+.node-divider line { stroke: var(--line); stroke-width: 1; }
+.node-divider circle { fill: var(--teal); }
+
+/* --------------------------------------------------------------------------
+   Header / primary navigation
+   Duplicated at the top of every page (no shared templating on a static
+   site) — if you later add a build step or SSG, this is the first thing
+   to extract into a partial.
+   -------------------------------------------------------------------------- */
+.site-header {
+  background: var(--navy);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.site-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.site-logo {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #fff;
+}
+.site-logo span { color: var(--teal); }
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-md);
+}
+
+.site-nav > ul {
+  list-style: none;
+  display: flex;
+  gap: var(--gap-md);
+  margin: 0;
+  padding: 0;
+}
+
+.site-nav a {
+  color: #C9D2E3;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+}
+.site-nav a:hover,
+.site-nav a[aria-current="page"] {
+  color: #fff;
+  text-decoration: none;
+}
+.site-nav a[aria-current="page"] {
+  border-bottom: 2px solid var(--teal);
+  padding-bottom: 4px;
+}
+
+/* Honors Portfolio has sub-pages — simple dropdown, no JS framework needed.
+   No margin-top gap between trigger and menu: a gap there is a dead zone
+   the cursor has to cross, causing the menu to close before you reach it. */
+.has-dropdown { position: relative; }
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: var(--navy);
+  border: 1px solid var(--line-dark);
+  border-radius: var(--radius);
+  padding: 0.75rem 0 0.5rem;
+  min-width: 240px;
+}
+.has-dropdown:hover .dropdown-menu,
+.has-dropdown:focus-within .dropdown-menu {
+  display: block;
+}
+.dropdown-menu li { display: block; }
+.dropdown-menu a {
+  display: block;
+  padding: 0.5rem 1rem;
+}
+.dropdown-menu a[aria-current="page"] {
+  color: #fff;
+  border-bottom: none;
+  padding-bottom: 0.5rem;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: var(--gap-md);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+}
+
+.project-body {
+  max-width: 70ch;
+}
+
+.btn {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+  padding: 0.55rem 1rem;
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+.btn-primary {
+  background: var(--teal);
+  color: #fff;
+}
+.btn-primary:hover { background: #0B646C; text-decoration: none; }
+.btn-outline {
+  background: transparent;
+  border-color: #C9D2E3;
+  color: #fff;
+}
+.btn-outline:hover { border-color: #fff; text-decoration: none; }
+
+/* Construction notice — used on pages going live before content is
+   finished. Amber matches the "in progress"/"planned" status language
+   already used elsewhere on the site. */
+.construction-banner {
+  background: rgba(199, 125, 46, 0.12);
+  border-bottom: 1px solid rgba(199, 125, 46, 0.3);
+  color: var(--amber);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  text-align: center;
+  padding: 0.65rem 1.5rem;
+}
+.construction-banner strong { color: var(--amber); }
+
+/* Smaller inline variant for flagging a section as unfinished, rather
+   than the whole page (see projects.html for the full-width version) */
+.construction-note {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--amber);
+  margin: -0.25rem 0 var(--gap-md);
+}
+
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+@media (max-width: 860px) {
+  .site-nav { display: none; }
+  .site-nav.is-open { display: flex; }
+  .nav-toggle { display: block; }
+  .site-header .container { flex-wrap: wrap; }
+  .site-nav {
+    flex-basis: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--gap-sm);
+    padding-bottom: 1rem;
+  }
+  .site-nav > ul { flex-direction: column; gap: var(--gap-sm); }
+  .dropdown-menu { position: static; border: none; padding-left: 1rem; }
+}
+
+/* --------------------------------------------------------------------------
+   Page hero (used with variations on every page)
+   -------------------------------------------------------------------------- */
+.page-hero {
+  padding: var(--gap-xl) 0 var(--gap-lg);
+}
+.page-hero p.lede {
+  font-size: 1.1rem;
+  max-width: 60ch;
+}
+
+/* Home page hero is taller and includes a photo placeholder + CTAs */
+.home-hero {
+  padding: var(--gap-xl) 0;
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: var(--gap-lg);
+  align-items: center;
+}
+@media (max-width: 780px) {
+  .home-hero { grid-template-columns: 1fr; }
+}
+
+.home-hero .headshot-placeholder {
+  aspect-ratio: 1 / 1;
+  background: var(--surface);
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  text-align: center;
+  padding: 1rem;
+}
+
+/* When the placeholder is a real <img> (photo supplied), swap the
+   dashed "empty" styling for an actual framed photo treatment. */
+img.headshot-placeholder {
+  border-style: solid;
+  object-fit: cover;
+  padding: 0;
+}
+
+.hero-ctas {
+  display: flex;
+  gap: var(--gap-sm);
+  margin-top: var(--gap-md);
+  flex-wrap: wrap;
+}
+.hero-ctas .btn-primary { background: var(--teal); color: #fff; }
+.hero-ctas .btn-secondary {
+  background: transparent;
+  border: 1px solid var(--navy);
+  color: var(--navy);
+}
+.hero-ctas .btn-secondary:hover { background: var(--navy); color: #fff; text-decoration: none; }
+
+/* --------------------------------------------------------------------------
+   Generic section spacing
+   -------------------------------------------------------------------------- */
+.section {
+  padding: var(--gap-lg) 0;
+}
+.section-heading {
+  margin-bottom: var(--gap-md);
+  max-width: 65ch;
+}
+
+/* --------------------------------------------------------------------------
+   Card grid — reused for Projects, Skills, Certifications, Featured items
+   -------------------------------------------------------------------------- */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--gap-md);
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: var(--gap-md);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Scoped to the homepage quick-facts strip — the base .card padding
+   reads as cramped when a card is just an eyebrow + one line, so this
+   variant gets more breathing room without affecting project/cert cards
+   elsewhere that already have more content filling the space. */
+.stat-cards .card {
+  padding: 2rem;
+  gap: 0.75rem;
+}
+.stat-cards .card h3 {
+  line-height: 1.4;
+}
+
+/* Each item gets its own line with a divider — dots/line-breaks inline
+   in a heading don't read as separate items, a real list does. */
+.stat-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--navy);
+}
+.stat-list li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--line);
+}
+.stat-list li:last-child { border-bottom: none; padding-bottom: 0; }
+.stat-caption {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--ink-soft);
+  margin: 0.5rem 0 0;
+}
+
+.card .media-placeholder {
+  aspect-ratio: 16 / 9;
+  background: var(--bg);
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  margin-bottom: 0.5rem;
+  text-align: center;
+  padding: 1rem;
+}
+
+/* Reflection pages also use .media-placeholder outside of .card, sized
+   to the reading column rather than a fixed 16:9 card. When a real <img>
+   is supplied, swap the dashed "empty" styling for a framed photo. */
+.reflection-block .media-placeholder {
+  aspect-ratio: auto;
+  padding: 0;
+  margin: var(--gap-md) 0;
+}
+.media-placeholder img {
+  width: 100%;
+  border-radius: var(--radius);
+}
+.media-placeholder:has(img) {
+  border-style: solid;
+  padding: 0;
+  background: none;
+}
+
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.25rem 0 0.5rem;
+}
+.tag {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.03em;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  color: var(--ink-soft);
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+}
+
+/* Filter tabs — Projects page */
+.filter-tabs {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: var(--gap-md);
+}
+.filter-tabs button {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.4rem 0.9rem;
+  cursor: pointer;
+  color: var(--ink-soft);
+}
+.filter-tabs button[aria-pressed="true"] {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: #fff;
+}
+
+/* --------------------------------------------------------------------------
+   Skills page — category groups
+   -------------------------------------------------------------------------- */
+.skills-groups {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--gap-md);
+}
+.skill-group h3 { margin-bottom: 0.5rem; }
+.skill-group ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+.skill-group li {
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+/* Certification cards — includes badge placeholder + status pill */
+.cert-card { flex-direction: row; align-items: center; gap: var(--gap-md); }
+.cert-badge-placeholder {
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 1px dashed var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--ink-soft);
+  text-align: center;
+}
+
+/* When the placeholder is a real <img> (badge supplied), swap the
+   dashed "empty" styling for an actual framed badge treatment. */
+img.cert-badge-placeholder {
+  border-style: solid;
+  object-fit: cover;
+}
+.status-pill {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(14, 124, 134, 0.1);
+  color: var(--teal);
+}
+.status-pill.in-progress {
+  background: rgba(199, 125, 46, 0.12);
+  color: var(--amber);
+}
+.status-pill.planned {
+  background: rgba(75, 85, 99, 0.1);
+  color: var(--ink-soft);
+}
+
+/* --------------------------------------------------------------------------
+   Experience page — stacked entries with a running vertical line
+   -------------------------------------------------------------------------- */
+.timeline {
+  border-left: 2px solid var(--line);
+  padding-left: var(--gap-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-lg);
+}
+.timeline-entry { position: relative; }
+.timeline-entry::before {
+  content: '';
+  position: absolute;
+  left: calc(-1 * var(--gap-md) - 5px);
+  top: 6px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--teal);
+}
+.timeline-entry .role-title { margin-bottom: 0; }
+.timeline-entry .role-meta {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  margin-bottom: 0.5rem;
+}
+.timeline-entry ul {
+  margin: 0.5rem 0 0;
+  padding-left: 1.1rem;
+  color: var(--ink-soft);
+}
+.timeline-entry li { margin-bottom: 0.25rem; }
+
+/* --------------------------------------------------------------------------
+   Honors reflection pages — sub-nav (tabs between the three pages) +
+   long-form content
+   -------------------------------------------------------------------------- */
+.subnav {
+  display: flex;
+  gap: var(--gap-md);
+  border-bottom: 1px solid var(--line);
+  margin-bottom: var(--gap-lg);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+}
+.subnav a {
+  padding: 0.75rem 0;
+  color: var(--ink-soft);
+  border-bottom: 2px solid transparent;
+}
+.subnav a:hover { text-decoration: none; color: var(--teal); }
+.subnav a[aria-current="page"] {
+  color: var(--teal);
+  border-bottom-color: var(--teal);
+}
+
+.reflection-block {
+  max-width: 70ch;
+  margin-bottom: var(--gap-xl);
+  scroll-margin-top: 90px; /* offset for sticky header when jumped to via anchor */
+}
+.reflection-block .placeholder-copy {
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+  padding: var(--gap-md);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  background: var(--surface);
+}
+
+/* --------------------------------------------------------------------------
+   Footer — repeated on every page
+   -------------------------------------------------------------------------- */
+.site-footer {
+  background: var(--navy);
+  color: #C9D2E3;
+  margin-top: var(--gap-xl);
+  padding: var(--gap-lg) 0;
+}
+.footer-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--gap-lg);
+}
+.footer-grid h4 {
+  color: #fff;
+  font-size: 0.9rem;
+  margin-bottom: 0.75rem;
+}
+.footer-links { list-style: none; margin: 0; padding: 0; }
+.footer-links li { margin-bottom: 0.4rem; }
+.footer-links a { color: #C9D2E3; font-family: var(--font-mono); font-size: 0.85rem; }
+.footer-links a:hover { color: #fff; }
+.footer-bottom {
+  margin-top: var(--gap-lg);
+  padding-top: var(--gap-md);
+  border-top: 1px solid var(--line-dark);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: #8492AC;
+}

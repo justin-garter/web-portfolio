@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Self-Hosted Personal Portfolio - Justin Garter</title>
+  <meta name="description" content="A static site on a Raspberry Pi 5, single-homed on a DMZ VLAN, managed only over WireGuard, rebuildable from an Ansible playbook.">
+  <meta name="color-scheme" content="dark">
+  <link rel="icon" href="../../Version%201.4/favicon.ico" sizes="any">
+  <link rel="icon" href="../../Version%201.4/favicon-32.png" type="image/png">
+  <link rel="apple-touch-icon" href="../../Version%201.4/favicon-180.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="container">
+    <a class="site-logo" href="index.html">Justin<span>.Garter</span></a>
+    <nav class="site-nav" aria-label="Primary">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li class="has-dropdown">
+          <a href="../../Version%201.4/projects.html" aria-current="page">Projects</a>
+          <ul class="dropdown">
+            <li><a href="../../Version%201.4/home-lab.html">Home Lab Environment</a></li>
+            <li><a href="self-hosted-portfolio.html" aria-current="page">Self-Hosted Personal Portfolio</a></li>
+            <li><a href="../../Version%201.4/klipper-monitoring.html">3D Printer Remote Management &amp; Optimization</a></li>
+          </ul>
+        </li>
+        <li><a href="../../Version%201.4/skills.html">Skills &amp; Certifications</a></li>
+        <li><a href="../../Version%201.4/experience.html">Experience</a></li>
+        <li class="has-dropdown">
+          <a href="../../Version%201.4/year-in-review.html">Honors Portfolio</a>
+          <ul class="dropdown">
+            <li><a href="../../Version%201.4/year-in-review.html">Year-in-Review</a></li>
+            <li><a href="../../Version%201.4/honors-experiences.html">Honors Experiences</a></li>
+            <li><a href="../../Version%201.4/gateway.html">Gateway</a></li>
+          </ul>
+        </li>
+      </ul>
+      <a class="btn btn-outline" href="../../Version%201.4/JustinGarterResume.pdf" download>Resume ↓</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="container page-hero">
+    <a class="back-link" href="../../Version%201.4/projects.html">← All Projects</a>
+    <span class="eyebrow">// Infrastructure &amp; Security</span>
+    <h1>Self-Hosted Personal Portfolio</h1>
+    <p class="lede">
+      This site - the one you're reading right now - runs on a Raspberry
+      Pi 5 on its own isolated network segment at home, with a custom
+      domain, automatic HTTPS, and a VPN-based management path. The whole
+      host is rebuildable from an Ansible playbook. Live at
+      <a href="https://justingarter.com">justingarter.com</a>.
+    </p>
+    <div class="meta-row">
+      <span class="status-pill">Live</span>
+      <span class="project-date">July 2026 - Present</span>
+    </div>
+    <ul class="tag-row">
+      <li>Reverse Proxy</li>
+      <li>DNS &amp; TLS</li>
+      <li>VLAN Segmentation</li>
+      <li>VPN</li>
+      <li>Ansible</li>
+    </ul>
+  </section>
+
+  <section class="container">
+    <h2 class="sr-only">Network diagram</h2>
+    <div class="plate">
+      <img src="../../Version%201.4/WebServerDiagram.png" alt="Network diagram showing DMZ segmentation, VLANs, and the WireGuard VPN management path">
+    </div>
+    <div class="legend" aria-label="Diagram colour key">
+      <span><i style="background:#00FF00;"></i>VPN</span>
+      <span><i style="background:#00FFFF;"></i>Web</span>
+      <span><i style="background-image:repeating-linear-gradient(90deg,#FF8000 0 5px,transparent 5px 9px);"></i>VPN tunnel</span>
+    </div>
+  </section>
+
+  <section class="container section">
+    <div class="section-bar">
+      <span class="tag-label">01</span>
+      <h2>Technologies Used</h2>
+      <span class="bar-meta">Host and stack</span>
+    </div>
+
+    <div class="stack-icons">
+      <figure><img src="../../Version%201.4/Raspberry_Pi_Logo.svg" alt="">Raspberry Pi</figure>
+      <figure><img src="../../Version%201.4/Caddyserver_logo.png" alt="">Caddy</figure>
+      <figure><img src="../../Version%201.4/wireguard.png" alt="">WireGuard</figure>
+    </div>
+
+    <dl class="speclist">
+      <div><dt>Host</dt><dd>Raspberry Pi 5 · 1 GB RAM · NVMe boot</dd></div>
+      <div><dt>Operating system</dt><dd>Raspberry Pi OS Lite (Debian 13)</dd></div>
+      <div><dt>Web server</dt><dd>Caddy · automatic HTTPS</dd></div>
+      <div><dt>Remote access</dt><dd>WireGuard · sole management path, no LAN-side fallback</dd></div>
+      <div><dt>Firewall</dt><dd>nftables · hand-written · default-deny inbound</dd></div>
+      <div><dt>Network position</dt><dd>Single-homed on a dedicated DMZ VLAN · Wi-Fi and Bluetooth disabled in firmware</dd></div>
+      <div><dt>Edge</dt><dd>Cloudflare proxy · DDNS on a systemd timer</dd></div>
+      <div><dt>Configuration</dt><dd>Ansible · 8 roles · encrypted vault</dd></div>
+    </dl>
+  </section>
+
+  <section class="container section">
+    <div class="section-bar">
+      <span class="tag-label">02</span>
+      <h2>Overview</h2>
+    </div>
+    <div class="prose">
+      <p>
+        This portfolio started on Wix. Self-hosting it gave me a low-stakes
+        place to apply the things I do professionally - network segmentation,
+        hardened remote access, defense-in-depth - to my own network. In
+        August 2026 I rebuilt it onto a smaller Raspberry Pi, and that rebuild
+        turned out to be the more useful half of the project.
+      </p>
+    </div>
+  </section>
+
+  <section class="container section">
+    <div class="section-bar">
+      <span class="tag-label">03</span>
+      <h2>What I Built</h2>
+    </div>
+    <div class="prose">
+      <p>
+        A static site served by Caddy on a Raspberry Pi 5 with 1GB of memory,
+        booting from NVMe, running Raspberry Pi OS Lite on Debian 13. It sits
+        single-homed on a dedicated DMZ VLAN, with Wi-Fi and Bluetooth disabled
+        at the firmware layer rather than left unconfigured - a dual-homed host
+        bridges the two networks regardless of what the firewall says.
+      </p>
+      <p>
+        The firewall is a hand-written nftables ruleset, default-deny inbound,
+        and SSH is reachable only over a WireGuard tunnel. That makes the VPN
+        the sole management path with no LAN-side fallback. It is a deliberate
+        trade - I gave up a convenient fallback to take a listening SSH port
+        off the segment entirely, and the cost is real: if the tunnel breaks,
+        recovery is a monitor and a keyboard.
+      </p>
+      <p>
+        Cloudflare proxies the site, and a DDNS script on a systemd timer keeps
+        DNS current against a dynamic home IP. Caddy is configured to accept
+        client-IP headers only from Cloudflare's ranges, so access logs record
+        real visitors rather than edge addresses and the log-driven blocking
+        acts on the right ones. Further hardening covers automatic security
+        patching, blocking of repeated scanning behaviour, and removal of the
+        provisioning tooling that has no business running on a live host.
+      </p>
+    </div>
+  </section>
+
+  <section class="container section">
+    <div class="section-bar">
+      <span class="tag-label">04</span>
+      <h2>What Rebuilding Taught Me</h2>
+      <span class="bar-meta">Verify behaviour, not configuration</span>
+    </div>
+
+    <div class="prose">
+      <p>
+        Rebuilding a server from its own documentation is the only reliable way
+        to find out how much of that documentation was true. Not all of it was,
+        which is the entire argument for doing it.
+      </p>
+      <p>
+        The habit that came out of it is to verify behaviour rather than
+        configuration. A config file describes intent. Querying a running
+        service describes reality. Actually attempting the thing describes
+        truth - and those three answers are not always the same. SSH here is
+        key-only because I tried to log in with a password and confirmed the
+        server refused without even prompting, not because a file says so.
+        Isolation between the DMZ and the trusted LAN is tested from both sides
+        rather than assumed. The Cloudflare trust scoping was confirmed by
+        sending forged client-IP headers from an untrusted host and checking
+        what actually got logged.
+      </p>
+    </div>
+
+    <div class="data-block">
+      <p class="data-head">Verification log - what was tested, and how</p>
+      <div class="table-scroll">
+        <table class="dtable">
+          <thead>
+            <tr><th scope="col">Claim</th><th scope="col">How it was checked</th><th scope="col">Result</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">SSH accepts keys only</th>
+              <td class="method">Attempted a password login against the running host</td>
+              <td><span class="status-pill">Pass - refused without prompting</span></td>
+            </tr>
+            <tr>
+              <th scope="row">DMZ is isolated from the trusted LAN</th>
+              <td class="method">Reachability tested from both sides, not assumed</td>
+              <td><span class="status-pill">Pass</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Caddy trusts client-IP headers only from Cloudflare</th>
+              <td class="method">Forged client-IP headers sent from an untrusted host, access logs inspected</td>
+              <td><span class="status-pill">Pass</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Playbook reproduces the host exactly</th>
+              <td class="method">Bare-host rebuild from the playbook alone</td>
+              <td><span class="status-pill in-progress">Not yet run</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="prose">
+      <p>
+        Load testing came out of the same discipline, and it found something no
+        configuration file could have shown. The first benchmark came back
+        around 11 MB/s with suspiciously flat latency - the signature of a
+        saturated link rather than a busy processor. The interface had
+        negotiated 100 Mb/s on a bad patch cable, so the server had been
+        running at roughly 9% of its actual capability. Once replaced, it
+        served 11,669 requests per second at 127 MB/s, saturating its own
+        gigabit link while running the load generator on the same four cores.
+      </p>
+    </div>
+
+    <div class="data-block">
+      <p class="data-head">Load test - before and after the patch cable was replaced</p>
+      <div class="table-scroll">
+        <table class="dtable">
+          <thead>
+            <tr><th scope="col">Measurement</th><th scope="col">Before</th><th scope="col">After</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Link negotiation</th>    <td class="num">100 Mb/s</td> <td class="num is-after">1 Gb/s</td></tr>
+            <tr><th scope="row">Throughput</th>          <td class="num">~11 MB/s</td> <td class="num is-after">127 MB/s</td></tr>
+            <tr><th scope="row">Requests per second</th> <td class="num">—</td>        <td class="num is-after">11,669</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="prose">
+      <p>
+        That test also answered which resource actually binds, and it was not
+        the one I expected. Memory never came close - Caddy peaked at 76MB
+        against the 384MB ceiling I set for it, with swap untouched, which
+        retroactively justifies choosing the 1GB board over something larger.
+        Temperature did bind, at 84.5&deg;C under sustained synthetic load. A $5
+        active cooler removes it as a variable, though the real workload never
+        approaches that.
+      </p>
+    </div>
+
+    <!-- A bar is drawn only where a ceiling was actually set. -->
+    <div class="data-block">
+      <p class="data-head">Resource ceilings under sustained synthetic load</p>
+      <div class="ceilings">
+        <div class="ceiling">
+          <span class="metric-num">76 MB</span>
+          <span class="metric-label">Peak Caddy memory</span>
+          <span class="metric-sub">of a 384 MB ceiling - 20%</span>
+          <div class="bar" aria-hidden="true"><span style="width:19.8%"></span></div>
+        </div>
+        <div class="ceiling">
+          <span class="metric-num">0</span>
+          <span class="metric-label">Swap used</span>
+          <span class="metric-sub">on a 1 GB board</span>
+        </div>
+        <div class="ceiling">
+          <span class="metric-num">84.5 &deg;C</span>
+          <span class="metric-label">Peak temperature</span>
+          <span class="metric-sub">the binding constraint</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container section">
+    <div class="section-bar">
+      <span class="tag-label">05</span>
+      <h2>Reproducible Build</h2>
+    </div>
+    <div class="prose">
+      <p>
+        The host is codified as an Ansible playbook - eight roles covering the
+        base system, SSH, firewall, VPN, DNS, web server, and monitoring, with
+        secrets in an encrypted vault. It is public at
+        <a href="https://github.com/justin-garter/pi-webserver-ansible">github.com/justin-garter/pi-webserver-ansible</a>.
+        Site content is deliberately not managed there: host configuration and
+        content deploys stay separate changes, so when something breaks there
+        is one variable to check instead of two.
+      </p>
+      <p>
+        The roles that could lock the box out carry their own guards, and
+        firewall changes are applied behind a timed automatic rollback. I would
+        not call the playbook proven yet - the real test is rebuilding a bare
+        host from it alone and getting an identical result, and I have not done
+        that rebuild.
+      </p>
+    </div>
+  </section>
+
+  <section class="container section">
+    <div class="section-bar">
+      <span class="tag-label">06</span>
+      <h2>Outcome</h2>
+    </div>
+    <div class="prose">
+      <p>
+        The site is live over HTTPS, the segmentation is verified in both
+        directions, and the whole configuration is in source control. This is a
+        student's project on hardware that costs less than a textbook, not
+        production infrastructure - and the low stakes are the point. It is a
+        place to practise the discipline of verifying instead of assuming,
+        where being wrong costs an afternoon rather than an outage.
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <p class="footer-name">Justin Garter</p>
+        <p>Kings Mills, Ohio</p>
+      </div>
+      <div>
+        <h2>Contact</h2>
+        <ul>
+          <li><a href="mailto:garterjn@outlook.com">garterjn@outlook.com</a></li>
+          <li><a href="tel:+15139000056">(513) 900-0056</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Links</h2>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/justin-garter/">LinkedIn</a></li>
+          <li><a href="https://github.com/justin-garter/Navigation">GitHub</a></li>
+          <li><a href="../../Version%201.4/JustinGarterResume.pdf" download>Resume (PDF)</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="footer-bottom">© 2026 Justin Garter · Technical Portfolio · IT &amp; Cybersecurity, University of Cincinnati</p>
+  </div>
+</footer>
+
+</body>
+</html>
