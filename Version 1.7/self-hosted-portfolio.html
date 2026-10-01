@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Self-Hosted Personal Portfolio - Justin Garter</title>
+  <meta name="description" content="A static site on a Raspberry Pi 5 in a DMZ VLAN behind OPNsense, reachable only through Cloudflare, rebuildable from an Ansible playbook.">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" href="favicon-32.png" type="image/png">
+  <link rel="apple-touch-icon" href="favicon-180.png">
+  <link rel="stylesheet" href="styles.css?v=1.7">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="container">
+    <a class="site-logo" href="/">Justin<span>.Garter</span></a>
+    <nav class="site-nav" aria-label="Primary">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li class="has-dropdown">
+          <a href="projects" aria-current="page">Projects</a>
+          <ul class="dropdown">
+            <li><a href="home-lab">Home Lab Environment</a></li>
+            <li><a href="self-hosted-portfolio" aria-current="page">Self-Hosted Personal Portfolio</a></li>
+            <li><a href="klipper-monitoring">3D Printer Remote Management &amp; Optimization</a></li>
+          </ul>
+        </li>
+        <li><a href="skills">Skills &amp; Certifications</a></li>
+        <li><a href="experience">Experience</a></li>
+        <li class="has-dropdown">
+          <a href="year-in-review">Honors Portfolio</a>
+          <ul class="dropdown">
+            <li><a href="year-in-review">Year-in-Review</a></li>
+            <li><a href="honors-experiences">Honors Experiences</a></li>
+            <li><a href="gateway">Gateway</a></li>
+          </ul>
+        </li>
+      </ul>
+      <a class="btn btn-ghost" href="JustinGarterResume.pdf" download>Resume ↓</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="band band-page">
+    <div class="container">
+      <a class="back-link" href="projects">← All Projects</a>
+      <span class="eyebrow">// Infrastructure &amp; Security</span>
+      <h1>Self-Hosted Personal Portfolio</h1>
+      <p class="lede">
+        This site, the one you're reading right now, runs on a Raspberry Pi 5
+        in a DMZ VLAN behind an OPNsense firewall I built at home. The internet
+        reaches it only through Cloudflare, on one port. The whole host is
+        rebuildable from an Ansible playbook, and it has already been rebuilt
+        twice. Live at <a href="https://justingarter.com">justingarter.com</a>.
+      </p>
+      <div class="meta-row">
+        <span class="status-pill">Live</span>
+        <span class="project-date">July 2026 - Present</span>
+      </div>
+      <ul class="tag-row">
+        <li>Reverse Proxy</li>
+        <li>DNS &amp; TLS</li>
+        <li>VLAN Segmentation</li>
+        <li>Firewall Policy</li>
+        <li>Ansible</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="container straddle">
+    <h2 class="sr-only">Network diagram</h2>
+    <figure class="plate">
+      <div class="nd-scroll" style="overflow-x:auto;">
+      <svg class="netdiagram" viewBox="0 0 1040 330" role="img" aria-labelledby="nd-title nd-desc">
+        <title id="nd-title">How a request reaches this site</title>
+        <desc id="nd-desc">Visitors connect to Cloudflare. Cloudflare forwards HTTPS on port 443 to the roommate network's router, which forwards it to an OPNsense firewall running as a virtual machine on Proxmox. OPNsense admits the connection only from Cloudflare's address ranges and passes it to the Raspberry Pi in DMZ VLAN 40. Separately, the admin desktop on VLAN 20 reaches the Pi over SSH through OPNsense. The firewall blocks the DMZ from reaching any private network.</desc>
+        <style>
+          .netdiagram { width: 100%; height: auto; display: block; }
+          @media (max-width: 700px) { .netdiagram { width: 720px; max-width: none; } }
+          .netdiagram .nd-box { fill: #FFFFFF; stroke: #C9CED3; stroke-width: 1.5; }
+          .netdiagram .nd-zone { fill: #E7F1EC; stroke: #0F5A38; stroke-width: 1.5; stroke-dasharray: 6 5; }
+          .netdiagram .nd-t { font-family: 'Space Grotesk', -apple-system, 'Segoe UI', Arial, sans-serif; font-size: 17px; font-weight: 600; fill: #111315; }
+          .netdiagram .nd-s, .netdiagram .nd-z, .netdiagram .nd-lw, .netdiagram .nd-la { font-family: 'JetBrains Mono', ui-monospace, Consolas, monospace; font-size: 12px; }
+          .netdiagram .nd-s { fill: #3B4045; }
+          .netdiagram .nd-z { font-weight: 600; fill: #0F5A38; }
+          .netdiagram .nd-lw { fill: #0F5A38; text-anchor: middle; }
+          .netdiagram .nd-la { fill: #3B4045; }
+          .netdiagram .nd-web { stroke: #0F5A38; stroke-width: 3; fill: none; }
+          .netdiagram .nd-adm { stroke: #3B4045; stroke-width: 2; stroke-dasharray: 7 5; fill: none; }
+        </style>
+        <defs>
+          <marker id="nd-aw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#0F5A38"/></marker>
+          <marker id="nd-aa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#3B4045"/></marker>
+        </defs>
+
+        <rect class="nd-zone" x="815" y="14" width="212" height="182" rx="10"/>
+        <text class="nd-z" x="830" y="38">DMZ · VLAN 40</text>
+        <text class="nd-s" x="830" y="180">private nets blocked</text>
+
+        <rect class="nd-box" x="15"  y="50" width="165" height="100" rx="8"/>
+        <text class="nd-t" x="31"  y="84">Visitors</text>
+        <text class="nd-s" x="31"  y="106">any browser</text>
+
+        <rect class="nd-box" x="220" y="50" width="165" height="100" rx="8"/>
+        <text class="nd-t" x="236" y="84">Cloudflare</text>
+        <text class="nd-s" x="236" y="106">proxy, edge TLS</text>
+        <text class="nd-s" x="236" y="124">https redirect</text>
+
+        <rect class="nd-box" x="425" y="50" width="165" height="100" rx="8"/>
+        <text class="nd-t" x="441" y="84">Home router</text>
+        <text class="nd-s" x="441" y="106">roommate network</text>
+        <text class="nd-s" x="441" y="124">forwards 443 only</text>
+
+        <rect class="nd-box" x="630" y="50" width="165" height="100" rx="8"/>
+        <text class="nd-t" x="646" y="84">OPNsense</text>
+        <text class="nd-s" x="646" y="106">Proxmox VM</text>
+        <text class="nd-s" x="646" y="124">Cloudflare IPs only</text>
+
+        <rect class="nd-box" x="835" y="50" width="177" height="100" rx="8"/>
+        <text class="nd-t" x="851" y="84">Raspberry Pi 5</text>
+        <text class="nd-s" x="851" y="106">Caddy, 443 only</text>
+        <text class="nd-s" x="851" y="124">nftables</text>
+        <text class="nd-s" x="851" y="142">default deny</text>
+
+        <rect class="nd-box" x="425" y="230" width="165" height="80" rx="8"/>
+        <text class="nd-t" x="441" y="262">Admin desktop</text>
+        <text class="nd-s" x="441" y="286">VLAN 20</text>
+
+        <path class="nd-web" d="M180 85 H218" marker-end="url(#nd-aw)"/>
+        <path class="nd-web" d="M385 85 H423" marker-end="url(#nd-aw)"/>
+        <path class="nd-web" d="M590 85 H628" marker-end="url(#nd-aw)"/>
+        <path class="nd-web" d="M795 85 H833" marker-end="url(#nd-aw)"/>
+        <text class="nd-lw" x="404" y="74">443</text>
+        <text class="nd-lw" x="609" y="74">443</text>
+        <text class="nd-lw" x="814" y="74">443</text>
+
+        <path class="nd-adm" d="M590 270 H712 V152"/>
+        <path class="nd-adm" d="M795 132 H833" marker-end="url(#nd-aa)"/>
+        <text class="nd-la" x="726" y="222">SSH, key only</text>
+        <text class="nd-la" x="726" y="240">two admin sources</text>
+      </svg>
+      </div>
+    </figure>
+    <div class="legend" aria-label="Diagram colour key">
+      <span><i style="background:#0F5A38;"></i>Public web traffic, HTTPS only</span>
+      <span><i style="background-image:repeating-linear-gradient(90deg,#3B4045 0 6px,transparent 6px 10px);"></i>Admin SSH</span>
+      <span><i style="background-image:repeating-linear-gradient(90deg,#0F5A38 0 5px,transparent 5px 9px);"></i>DMZ boundary</span>
+    </div>
+  </section>
+
+  <section class="container section">
+    <div class="section-heading">
+      <span class="eyebrow">Host and stack</span>
+      <h2>Technologies Used</h2>
+    </div>
+
+    <div class="stack-icons">
+      <figure><img src="Raspberry_Pi_Logo.svg" alt="">Raspberry Pi</figure>
+      <figure><img src="Caddyserver_logo.png" alt="">Caddy</figure>
+      <figure><img src="Cloudflare_Logo.png" alt="">Cloudflare</figure>
+      <figure><img src="Ansible_logo.svg" alt="">Ansible</figure>
+    </div>
+
+    <table class="spec-table">
+      <caption class="sr-only">Host and stack specification</caption>
+      <tbody>
+        <tr><th scope="row">Host</th>            <td>Raspberry Pi 5 · 1 GB RAM · microSD boot</td></tr>
+        <tr><th scope="row">Operating system</th><td>Raspberry Pi OS Lite (Debian 13)</td></tr>
+        <tr><th scope="row">Web server</th>      <td>Caddy · port 443 only · Cloudflare Origin CA certificate</td></tr>
+        <tr><th scope="row">Edge</th>            <td>Cloudflare proxy · Full (Strict) TLS · DDNS on a systemd timer</td></tr>
+        <tr><th scope="row">Gateway</th>         <td>OPNsense VM on Proxmox · admits Cloudflare's address ranges only</td></tr>
+        <tr><th scope="row">Network position</th><td>Single-homed on a DMZ VLAN blocked from every private network</td></tr>
+        <tr><th scope="row">Firewall</th>        <td>nftables · hand-written · default-deny inbound</td></tr>
+        <tr><th scope="row">Management</th>      <td>SSH, key only, from two admin sources · console password as break-glass</td></tr>
+        <tr><th scope="row">Radios</th>          <td>Wi-Fi and Bluetooth disabled at the firmware layer</td></tr>
+        <tr><th scope="row">Cooling</th>         <td>Active cooler · added after thermal testing</td></tr>
+        <tr><th scope="row">Configuration</th>   <td>Ansible · 7 roles · encrypted vault</td></tr>
+        <tr><th scope="row">Source</th>          <td><a href="https://github.com/justin-garter/pi-webserver-ansible">github.com/justin-garter/pi-webserver-ansible</a></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="container section project-body">
+
+    <h2>Overview</h2>
+    <div class="prose">
+      <p>
+        This portfolio started on Wix. Self-hosting it gave me a low-stakes
+        place to apply the things I do professionally, like network
+        segmentation, controlled remote access and defense in depth, to my own
+        network. It has been rebuilt twice since: in August 2026 onto a smaller
+        Raspberry Pi, and in September 2026 onto a new network behind a
+        firewall I built when I moved. Both rebuilds taught me more than the
+        original build did.
+      </p>
+    </div>
+
+    <h2>What I Built</h2>
+    <div class="prose">
+      <p>
+        A static site served by Caddy on a Raspberry Pi 5 with 1 GB of memory,
+        running Raspberry Pi OS Lite on Debian 13. It sits single-homed on a
+        dedicated DMZ VLAN, with Wi-Fi and Bluetooth disabled at the firmware
+        layer rather than left unconfigured. A dual-homed host bridges two
+        networks regardless of what the firewall says.
+      </p>
+      <p>
+        The only way in from the internet is HTTPS through Cloudflare. The home
+        router forwards one port, 443, to an OPNsense firewall running as a
+        virtual machine on Proxmox, and OPNsense admits that traffic only from
+        Cloudflare's published address ranges. Loading the bare home IP from a
+        phone on cellular times out, so nobody can reach the server around the
+        proxy. OPNsense also blocks the DMZ from opening a connection to any
+        private network, so a compromised web server would have nowhere to go.
+      </p>
+      <p>
+        TLS between Cloudflare and the server uses a Cloudflare Origin CA
+        certificate instead of Let's Encrypt. Behind Cloudflare's proxy, Let's
+        Encrypt would have needed port 80 open and a renewal every few months
+        that fails quietly. The origin certificate is valid for 15 years and
+        needs neither. The tradeoff is that only Cloudflare trusts it, which
+        is fine for a site that is always proxied anyway.
+      </p>
+      <p>
+        Administration is SSH with keys only, admitted from two sources: the
+        management VLAN and my admin desktop. OPNsense enforces that, and the
+        Pi's own hand-written nftables ruleset enforces it again. Sudo still
+        asks for a password, so a stolen key alone doesn't get root. The same
+        password works at the physical console, which is the break-glass if
+        every network path fails.
+      </p>
+      <p>
+        A DDNS script on a systemd timer keeps DNS current against a dynamic
+        home IP. Caddy accepts client-IP headers only from Cloudflare's ranges,
+        so access logs record real visitors rather than edge addresses.
+        Further hardening covers automatic security patching, detection of
+        repeated scanning, and removal of the provisioning tooling that has no
+        business running on a live host.
+      </p>
+    </div>
+
+    <h2>What Rebuilding Taught Me</h2>
+    <div class="prose">
+      <p>
+        Rebuilding a server from its own documentation is the only reliable way
+        to find out how much of that documentation was true. Not all of it was,
+        which is the entire argument for doing it.
+      </p>
+      <p>
+        The habit that came out of it is to verify behaviour rather than
+        configuration. A config file describes intent. Querying a running
+        service describes reality. Actually attempting the thing describes
+        truth, and those three answers are not always the same. SSH here is
+        key-only because I tried to log in with a password and the server
+        refused without even prompting, not because a file says so. The
+        Cloudflare trust scoping was confirmed by sending forged client-IP
+        headers from an untrusted host and checking what actually got logged.
+      </p>
+    </div>
+
+    <div class="data-block">
+      <p class="data-head">Verification log - what was tested, and how</p>
+      <div class="table-scroll">
+        <table class="dtable">
+          <thead>
+            <tr><th scope="col">Claim</th><th scope="col">How it was checked</th><th scope="col">Result</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">SSH accepts keys only</th>
+              <td class="method">Attempted a password login against the running host (Aug 2026). The playbook also asserts the effective SSH config on every run</td>
+              <td><span class="status-pill">Pass - refused without prompting</span></td>
+            </tr>
+            <tr>
+              <th scope="row">The server is reachable only through Cloudflare</th>
+              <td class="method">Loaded the site and the bare home IP from a phone on cellular (Sep 2026)</td>
+              <td><span class="status-pill">Pass - direct IP times out</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Caddy trusts client-IP headers only from Cloudflare</th>
+              <td class="method">Forged client-IP headers sent from an untrusted host, access logs inspected (Aug 2026)</td>
+              <td><span class="status-pill">Pass</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Ban enforcement survives a reboot</th>
+              <td class="method">Forced a ban on a freshly booted host and confirmed the rule appeared in the live ruleset (Aug 2026)</td>
+              <td><span class="status-pill">Pass</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Playbook reproduces every file it manages</th>
+              <td class="method">Wiped the disk, rebuilt from the playbook, diffed 192 managed files against a pre-wipe manifest (Aug 2026)</td>
+              <td><span class="status-pill">Pass - zero content or permission differences</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Console login works with every network path down</th>
+              <td class="method">Logged in at the physical console before the firewall was ever applied (Sep 2026)</td>
+              <td><span class="status-pill">Pass</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Playbook builds a working host from a blank card</th>
+              <td class="method">Aug 2026: 9 manual interventions and two passes. Sep 2026: rebuilt after the fixes below, counting every manual step</td>
+              <td><span class="status-pill">Pass - 4 documented prerequisites, one run, then zero changes</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <h2>Performance</h2>
+    <div class="prose">
+      <p class="caption-note">
+        Measured in August 2026 on the previous build, which booted from NVMe
+        on a different network. It is the same board and the same cooler, so
+        the figures still describe what this hardware and Caddy can do, but
+        they are not a benchmark of the current storage or network path.
+      </p>
+      <p>
+        Load testing came out of the same discipline, and it found something no
+        configuration file could have shown. The first benchmark came back
+        around 11 MB/s with suspiciously flat latency, the signature of a
+        saturated link rather than a busy processor. The interface had
+        negotiated 100 Mb/s on a bad patch cable, so the server had been
+        running at roughly 9% of its actual capability. Once replaced, it
+        served 11,669 requests per second at 127 MB/s with the load generator
+        running on the same four cores. That figure is measured over loopback,
+        so it describes what Caddy and the CPU can do rather than what the
+        network path can carry.
+      </p>
+    </div>
+
+    <div class="data-block">
+      <p class="data-head">Load test - before and after the patch cable was replaced (Aug 2026)</p>
+      <div class="table-scroll">
+        <table class="dtable">
+          <thead>
+            <tr><th scope="col">Measurement</th><th scope="col">Before</th><th scope="col">After</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Link negotiation</th>    <td class="num">100 Mb/s</td> <td class="num is-after">1 Gb/s</td></tr>
+            <tr><th scope="row">Throughput</th>          <td class="num">~11 MB/s</td> <td class="num is-after">127 MB/s</td></tr>
+            <tr><th scope="row">Requests per second</th> <td class="num">not measured</td> <td class="num is-after">11,669</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="prose">
+      <p>
+        That test also answered which resource actually binds, and it was not
+        the one I expected. Memory never came close. Caddy peaked at 76 MB
+        against the 384 MB ceiling I set for it, with swap untouched, which
+        retroactively justifies choosing the 1 GB board over something larger.
+        Temperature did bind, at 84.5&deg;C under sustained synthetic load, with
+        the throttle bits set to prove it.
+      </p>
+      <p>
+        Fitting an active cooler and re-running the test brought the peak to
+        64.2&deg;C with no throttle bit set at any point, and throughput held.
+        The cooler is not something the real workload needs, since a static
+        site behind Cloudflare never approaches that load, but it removes heat
+        as a constraint for anything CPU-heavy this host does later, for the
+        price of a cheap part.
+      </p>
+    </div>
+
+    <div class="data-block">
+      <p class="data-head">Thermal - before and after the active cooler (Aug 2026)</p>
+      <div class="table-scroll">
+        <table class="dtable">
+          <thead>
+            <tr><th scope="col">Measurement</th><th scope="col">Passive</th><th scope="col">Active cooler</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Idle temperature</th>       <td class="num">42.8 &deg;C</td> <td class="num is-after">34.0 &deg;C</td></tr>
+            <tr><th scope="row">Peak under load</th>        <td class="num">84.5 &deg;C</td> <td class="num is-after">64.2 &deg;C</td></tr>
+            <tr><th scope="row">Throttling</th>             <td class="num">Triggered</td>   <td class="num is-after">None</td></tr>
+            <tr><th scope="row">Requests per second</th>    <td class="num">11,669</td>      <td class="num is-after">11,952</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="prose">
+      <p class="caption-note">
+        The two runs used different concurrency settings, so the request figures
+        confirm that throughput held rather than proving the host got faster.
+        Both are loopback measurements on the host itself.
+      </p>
+    </div>
+
+    <div class="data-block">
+      <p class="data-head">Resource ceilings under sustained synthetic load (Aug 2026)</p>
+      <div class="ceilings">
+        <div class="ceiling">
+          <span class="metric-num">76 MB</span>
+          <span class="metric-label">Peak Caddy memory</span>
+          <span class="metric-sub">of a 384 MB ceiling - 20%</span>
+          <div class="bar" aria-hidden="true"><span style="width:19.8%"></span></div>
+        </div>
+        <div class="ceiling">
+          <span class="metric-num">0</span>
+          <span class="metric-label">Swap used</span>
+          <span class="metric-sub">on a 1 GB board</span>
+        </div>
+        <div class="ceiling">
+          <span class="metric-num">64.2 &deg;C</span>
+          <span class="metric-label">Peak temperature</span>
+          <span class="metric-sub">was 84.5 &deg;C before cooling</span>
+        </div>
+      </div>
+    </div>
+
+    <h2>Reproducible Build</h2>
+    <div class="prose">
+      <p>
+        The host is codified as an Ansible playbook, seven roles covering the
+        base system, SSH, firewall, web server, scan detection, DNS and
+        monitoring, with secrets in an encrypted vault. It is public at
+        <a href="https://github.com/justin-garter/pi-webserver-ansible">github.com/justin-garter/pi-webserver-ansible</a>,
+        along with the docs for deploying, rebuilding, checking and recovering
+        it. Site content is deliberately not managed there: host configuration
+        and content deploys stay separate changes, so when something breaks
+        there is one variable to check instead of two.
+      </p>
+      <p>
+        The roles that could lock the box out carry their own guards. The base
+        role refuses to run if the account has no console password. The
+        firewall role refuses to apply a ruleset that admits SSH from nowhere.
+        The SSH and fail2ban roles assert their own result rather than trusting
+        that a task reported success.
+      </p>
+      <p>
+        In August 2026 I ran the test that decides whether any of that is real:
+        wiped the disk and rebuilt the host from the playbook alone. Every one
+        of the 192 files the playbook manages came back with no difference in
+        content, ownership, or permissions. But it was not a bare-metal build.
+        Getting the playbook to run at all took nine manual steps, it could not
+        finish in one pass, and a mid-play failure left the firewall and the SSH
+        daemon disagreeing about which port to use, which locked me out and
+        cost a physical power cycle to recover.
+      </p>
+      <p>
+        Then I moved. On the first boot at the new place I could not log in at
+        all. The server's only way in had been SSH over a VPN tunnel that the
+        server itself terminated, and the account had never had a password, so
+        moving it removed the only door. Nothing was lost, because every part
+        of the host lived in the playbook, the vault or the site's repository.
+        But it was the clearest lesson in the project: a host whose only
+        administrative path is the network can't be recovered when the network
+        is the thing that changed.
+      </p>
+      <p>
+        The September rebuild fixed causes rather than symptoms. The account
+        has a console password, kept in a password manager, and the playbook
+        refuses to run without one. SSH is now admitted by source address
+        instead of by interface, which removed the two-pass requirement. The
+        first run on the new network found three more defects, including the
+        playbook fighting the OS's network manager over the same file, and all
+        three were fixed in the playbook rather than on the host. The manual
+        preparation dropped from nine steps to four, all done while flashing
+        the card, and the build finished with a reboot and a full run
+        reporting zero changes.
+      </p>
+    </div>
+
+    <h2>Outcome</h2>
+    <div class="prose">
+      <p>
+        The site is live over HTTPS through Cloudflare only, the whole
+        configuration is in source control, and the host has survived a move
+        by being rebuilt rather than repaired. This is a student's project on
+        hardware that costs less than a textbook, not production
+        infrastructure, and the low stakes are the point. It is a place to
+        practise the discipline of verifying instead of assuming, where being
+        wrong costs an afternoon rather than an outage.
+      </p>
+    </div>
+
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <p class="footer-name">Justin Garter</p>
+        <p>Cincinnati, Ohio</p>
+      </div>
+      <div>
+        <h2>Contact</h2>
+        <ul>
+          <li><a href="mailto:garterjn@outlook.com">garterjn@outlook.com</a></li>
+          <li><a href="tel:+15139000056">(513) 900-0056</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Links</h2>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/justin-garter/">LinkedIn</a></li>
+          <li><a href="https://github.com/justin-garter/Navigation">GitHub</a></li>
+          <li><a href="JustinGarterResume.pdf" download>Resume (PDF)</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="footer-bottom">© 2026 Justin Garter · Technical Portfolio · IT &amp; Cybersecurity, University of Cincinnati</p>
+  </div>
+</footer>
+
+</body>
+</html>
