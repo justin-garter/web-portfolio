@@ -6,7 +6,7 @@ straight from disk skips that and breaks the nav. This does the same
 fallback on your machine.
 
 Usage, from C:\\Projects\\Web Portfolio:
-    py preview.py "Version 1.7"
+    py preview.py "Version 1.8"
 Then open http://localhost:8000/   (Ctrl+C to stop)
 
 Listens on 127.0.0.1 only, so nothing else on the network can reach it.
@@ -16,7 +16,7 @@ import http.server
 import os
 import sys
 
-root = sys.argv[1] if len(sys.argv) > 1 else "Version 1.7"
+root = sys.argv[1] if len(sys.argv) > 1 else "Version 1.8"
 port = int(sys.argv[2]) if len(sys.argv) > 2 else 8000
 
 if not os.path.isdir(root):
