@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" class="elevate">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Justin Garter - Technical Portfolio</title>
+  <meta name="description" content="Elevate direction preview">
+  <link rel="icon" href="../assets/favicon-32.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <script src="../assets/enhance.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="index.html">Justin<span>.Garter</span></a>
+    <nav class="site-nav" aria-label="Primary">
+      <ul>
+        <li><a href="index.html" aria-current="page">Home</a></li>
+        <li class="has-dd"><a href="home-lab.html">Projects</a>
+          <ul class="dd">
+            <li><a href="home-lab.html">Home Lab Environment</a></li>
+            <li><a href="#">Self-Hosted Personal Portfolio</a></li>
+            <li><a href="#">3D Printer Remote Management &amp; Optimization</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Skills &amp; Certifications</a></li>
+        <li><a href="#">Experience</a></li>
+        <li><a href="#">Honors Portfolio</a></li>
+      </ul>
+      <a class="btn btn-ghost btn-sm" href="../assets/JustinGarterResume.pdf" download>Resume ↓</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="band">
+    <div class="wrap hero">
+      <div>
+        <span class="eyebrow">// IT &amp; Cybersecurity - University of Cincinnati</span>
+        <h1>Networking, cybersecurity, and cloud technologies - from coursework, <span style="white-space:nowrap">co-ops</span>, and projects.</h1>
+        <p class="lede">I&#x27;m a double major in Information Technology (Networking concentration) and Cybersecurity at the University of Cincinnati, graduating May 2027 with a 4.0 GPA. Across four co-ops I&#x27;ve designed network architecture, automated business workflows, and led cybersecurity awareness initiatives. I&#x27;m CompTIA Security+ and Microsoft Azure Fundamentals (AZ-900) certified.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary" href="home-lab.html">View Projects</a>
+          <a class="btn btn-ghost" href="../assets/JustinGarterResume.pdf" download>Download Resume</a>
+        </div>
+        <p class="status-line"><span><b>Cincinnati</b>, Ohio</span><span>Graduating <b>May 2027</b></span><span><b>4.0</b> GPA</span></p>
+      </div>
+      <figure class="portrait"><img src="../assets/Headshot.JPEG" alt="Justin Garter" width="500" height="700"><figcaption>Justin Garter</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="wrap straddle">
+    <h2 class="sr-only">At a glance</h2>
+    <div class="facts">
+      <div class="fact" data-reveal>
+        <div class="fact-head"><span class="eyebrow">Education</span><span class="fact-count">03</span></div>
+        <ul><li>M.S. IT</li><li>B.S. IT (Networking)</li><li>B.S. Cybersecurity</li></ul>
+        <p class="caption">Expected May 2027</p>
+      </div>
+      <div class="fact" data-reveal>
+        <div class="fact-head"><span class="eyebrow">Focus</span><span class="fact-count">04</span></div>
+        <ul><li>Network Architecture</li><li>Segmentation &amp; Trust Boundaries</li><li>System Hardening</li><li>Automation &amp; Documentation</li></ul>
+        
+      </div>
+      <div class="fact" data-reveal>
+        <div class="fact-head"><span class="eyebrow">Certifications</span><span class="fact-count">04</span></div>
+        <ul><li>CompTIA Security+</li><li>CompTIA Network+</li><li>Microsoft Azure Fundamentals</li><li>CompTIA ITF+</li></ul>
+        <p class="caption"><a href="skills">View all certifications →</a></p>
+      </div>
+      <div class="fact" data-reveal>
+        <div class="fact-head"><span class="eyebrow">Co-ops</span><span class="fact-count">04</span></div>
+        <ul><li>Maverick Molding Company</li><li>Shepherd Color Company</li><li>Fecon LLC</li><li>Digital Futures UCSIM</li></ul>
+        <p class="caption">Three industry, one university research.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap section">
+    <div class="about" data-reveal>
+      <div><span class="eyebrow">About</span><h2 style="font-size:clamp(1.6rem,1.2rem + 1.4vw,2.2rem);margin-top:.75rem">About Me</h2></div>
+      <p>I build and design infrastructure with a security-first mindset. I specialize in network architecture, segmentation, and system hardening. Automation and documentation drive every decision, so systems run unattended and stay reliable over time. I&#x27;ve built and secured IoT, ICS, and OT networks where legacy equipment and safety constraints shape every security choice, and hybrid environments where on-prem and cloud have to operate as one system. My goal is to work in infrastructure security.</p>
+    </div>
+  </section>
+
+  <section class="wrap section">
+    <div class="section-head"><div><span class="eyebrow">Featured Work</span><h2>Selected Projects</h2></div></div>
+    <div class="cards">
+      <article class="card" data-reveal>
+        <div class="card-media pending">[ network diagram pending ]</div>
+        <div class="card-body">
+          <h3>Home Lab Environment</h3>
+          <p>Everything I host on one Proxmox machine: an OPNsense firewall VM, five VLANs, Jellyfin, and a public Minecraft server. Backed up nightly with a tested restore, and every host defined in Ansible so it can move in 2027 as a playbook run.</p>
+          <a class="card-link" href="home-lab.html">View project <span>→</span></a>
+        </div>
+        <div class="card-meta"><span class="status-pill">Live</span><span class="date">July 2026 - Present</span><ul class="tag-row"><li>Proxmox</li><li>OPNsense</li><li>Ansible</li></ul></div>
+      </article>
+      <article class="card" data-reveal>
+        <div class="card-media logos"><img src="../assets/Caddyserver_logo.png" alt="Caddy"><img src="../assets/Cloudflare_Logo.png" alt="Cloudflare"><img src="../assets/Ansible_logo.svg" alt="Ansible"></div>
+        <div class="card-body">
+          <h3>Self-Hosted Personal Portfolio</h3>
+          <p>This site, self-hosted on a Raspberry Pi in a DMZ VLAN behind an OPNsense firewall, reachable only through Cloudflare and rebuildable from an Ansible playbook. Live at justingarter.com.</p>
+          <a class="card-link" href="#">View project <span>→</span></a>
+        </div>
+        <div class="card-meta"><span class="status-pill">Live</span><span class="date">July 2026 - Present</span><ul class="tag-row"><li>Reverse Proxy</li><li>VLAN/DMZ</li></ul></div>
+      </article>
+      <article class="card" data-reveal>
+        <div class="card-media"><img src="../assets/lucky-cat-front.jpg" alt="Three 3D-printed lucky cat models side by side: the white original from the stock machine, and two red prints from the rebuilt one"></div>
+        <div class="card-body">
+          <h3>3D Printer Remote Management &amp; Optimization</h3>
+          <p>An Ender 3 V2 rebuilt on Klipper and driven from a browser over HTTPS. A LAN assessment found its control API reachable without credentials - now closed at two layers.</p>
+          <a class="card-link" href="#">View project <span>→</span></a>
+        </div>
+        <div class="card-meta"><span class="status-pill">Phase 1 Complete</span><span class="date">July 2026 - Present</span><ul class="tag-row"><li>Klipper</li><li>Security Assessment</li></ul></div>
+      </article>
+    </div>
+  </section>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <p class="foot-name">Justin Garter</p>
+        <p>Cincinnati, Ohio</p>
+      </div>
+      <div>
+        <h2>Contact</h2>
+        <ul>
+          <li><a href="mailto:garterjn@outlook.com">garterjn@outlook.com</a></li>
+          <li><a href="tel:+15139000056">(513) 900-0056</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Links</h2>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/justin-garter/">LinkedIn</a></li>
+          <li><a href="https://github.com/justin-garter/Navigation">GitHub</a></li>
+          <li><a href="../assets/JustinGarterResume.pdf" download>Resume (PDF)</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="foot-bottom">© 2026 Justin Garter · Technical Portfolio · IT &amp; Cybersecurity, University of Cincinnati</p>
+  </div>
+</footer>
+</body>
+</html>

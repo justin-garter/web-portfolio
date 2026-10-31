@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home Lab Environment - Justin Garter</title>
+  <meta name="description" content="A segmented home lab built around one Proxmox machine and two Raspberry Pis: an OPNsense firewall VM, five VLANs, Jellyfin and a public Minecraft server, backed up nightly, with every host but the firewall defined in Ansible.">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" href="favicon-32.png" type="image/png">
+  <link rel="apple-touch-icon" href="favicon-180.png">
+  <meta name="theme-color" content="#08090B">
+  <link rel="stylesheet" href="styles.css?v=2.0">
+  <script src="enhance.js?v=2.0" defer></script>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="container">
+    <a class="site-logo" href="/">Justin<span>.Garter</span><i aria-hidden="true"></i></a>
+    <nav class="site-nav" aria-label="Primary">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li class="has-dropdown">
+          <a href="projects" aria-current="page">Projects</a>
+          <ul class="dropdown">
+            <li><a href="home-lab" aria-current="page">Home Lab Environment</a></li>
+            <li><a href="self-hosted-portfolio">Self-Hosted Personal Portfolio</a></li>
+            <li><a href="klipper-monitoring">3D Printer Remote Management &amp; Optimization</a></li>
+          </ul>
+        </li>
+        <li><a href="skills">Skills &amp; Certifications</a></li>
+        <li><a href="experience">Experience</a></li>
+        <li class="has-dropdown">
+          <a href="year-in-review">Honors Portfolio</a>
+          <ul class="dropdown">
+            <li><a href="year-in-review">Year-in-Review</a></li>
+            <li><a href="honors-experiences">Honors Experiences</a></li>
+            <li><a href="gateway">Gateway</a></li>
+          </ul>
+        </li>
+      </ul>
+      <a class="btn btn-ghost" href="JustinGarterResume.pdf" download>Resume ↓</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="band band-page">
+    <div class="container">
+      <a class="back-link" href="projects">← All Projects</a>
+      <span class="eyebrow">// Networking &amp; Infrastructure</span>
+      <h1>Home Lab Environment</h1>
+      <p class="lede">
+        My personal infrastructure is one Proxmox machine and two Raspberry Pis at my place.
+        Proxmox runs the firewall, a Jellyfin media server and a modded Minecraft
+        server for about ten friends. One Pi serves this website and the other
+        holds the backups. It's segmented into five VLANs behind an OPNsense
+        firewall I run as a virtual machine, backed up nightly, and every host
+        but the firewall is defined in Ansible so I can rebuild it somewhere
+        else. The firewall comes back from a tested backup.
+      </p>
+      <div class="meta-row">
+        <span class="status-pill">Live</span>
+        <span class="project-date">July 2026 - Present</span>
+      </div>
+      <ul class="tag-row">
+        <li>Proxmox</li>
+        <li>OPNsense</li>
+        <li>VLAN Segmentation</li>
+        <li>Ansible</li>
+        <li>Backups &amp; Recovery</li>
+        <li>Tailscale</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="container straddle">
+    <h2 class="sr-only">Network diagram</h2>
+    <figure class="plate hl-plate">
+      <div class="netmap-scroll">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800" role="group" aria-labelledby="hl-title" aria-describedby="hl-desc" class="hl-net">
+<title id="hl-title">Home lab network</title>
+<desc id="hl-desc">Only two ports reach the lab from the internet. The website arrives over HTTPS through Cloudflare on port 443. Minecraft arrives directly on port 25565. Devices on the house network reach only Jellyfin on port 8096. OPNsense, a virtual machine on Proxmox, is the gateway for four lab segments: DMZ, SERVERS, MAIN and MGMT. Proxmox keeps a separate out-of-band path over the house guest Wi-Fi with Tailscale.</desc>
+<style>
+.hl-net{--bg:#F5F6F7;--panel:#FFFFFF;--ink:#111315;--ink2:#3B4045;--ink3:#61676D;--line:#C9CED3;--tint:#ECEEF0;--focus:#111315;
+ --sky:#269DD9;--vio:#A44CF0;--mag:#D9269D;
+ font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif}
+@media (prefers-color-scheme:dark){.hl-net{--bg:#17191B;--panel:#212427;--ink:#ECEEF0;--ink2:#C3C8CD;--ink3:#A8AEB4;--line:#3A4045;--tint:#1C1F22;--focus:#ECEEF0}}
+:root[data-theme="light"] .hl-net{--bg:#F5F6F7;--panel:#FFFFFF;--ink:#111315;--ink2:#3B4045;--ink3:#61676D;--line:#C9CED3;--tint:#ECEEF0;--focus:#111315}
+:root[data-theme="dark"] .hl-net{--bg:#17191B;--panel:#212427;--ink:#ECEEF0;--ink2:#C3C8CD;--ink3:#A8AEB4;--line:#3A4045;--tint:#1C1F22;--focus:#ECEEF0}
+.hl-net .bg{fill:var(--bg)}
+.hl-net .box{fill:var(--panel);stroke:var(--line);stroke-width:1.25}
+.hl-net .zone{fill:var(--tint);stroke:var(--line);stroke-width:1}
+.hl-net .h{font-family:'Space Grotesk','Inter',Arial,sans-serif;font-weight:600;fill:var(--ink)}
+.hl-net .t{fill:var(--ink2)}
+.hl-net .q{fill:var(--ink3)}
+.hl-net .m{font-family:'JetBrains Mono',ui-monospace,Consolas,monospace;fill:var(--ink2)}
+.hl-net .ic{fill:none;stroke:var(--ink3);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.hl-net .p{fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.hl-net .web{stroke:var(--sky)} .hl-net .mc{stroke:var(--vio)} .hl-net .jf{stroke:var(--mag)}
+.hl-net .adm{fill:none;stroke:var(--ink3);stroke-width:1.5}
+.hl-net .oob{fill:none;stroke:var(--ink3);stroke-width:1.5;stroke-dasharray:6 5}
+.hl-net .node{cursor:default;outline:none}
+.hl-net .node:hover .box,.hl-net .node:focus .box{stroke:var(--focus);stroke-width:2}
+.hl-net .tip{opacity:0;pointer-events:none;transition:opacity .15s}
+.hl-net .node:hover .tip,.hl-net .node:focus .tip{opacity:1}
+.hl-net .hint{transition:opacity .15s}
+.hl-net:has(.node:hover) .hint,.hl-net:has(.node:focus) .hint{opacity:0}
+@media (prefers-reduced-motion:reduce){.hl-net .tip,.hl-net .hint{transition:none}}
+</style>
+<defs>
+<marker id="hl-a-web" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" style="fill:var(--sky)"/></marker>
+<marker id="hl-a-mc" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" style="fill:var(--vio)"/></marker>
+<marker id="hl-a-jf" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" style="fill:var(--mag)"/></marker>
+<marker id="hl-a-ink" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" style="fill:var(--ink3)"/></marker>
+</defs>
+<rect class="bg" width="100%" height="100%" rx="12"/>
+<text class="h" x="40" y="48" font-size="24">Home lab network</text>
+<text class="q" x="40" y="74" font-size="14">Only two ports reach the lab from the internet</text>
+<line class="p web" x1="520" y1="44" x2="546" y2="44"/><text class="t" x="554" y="49" font-size="13">Website · 443 via Cloudflare</text>
+<line class="p mc" x1="770" y1="44" x2="796" y2="44"/><text class="t" x="804" y="49" font-size="13">Minecraft · 25565 direct</text>
+<line class="p jf" x1="975" y1="44" x2="1001" y2="44"/><text class="t" x="1009" y="49" font-size="13">Jellyfin · 8096 house only</text>
+<line class="oob" x1="520" y1="68" x2="546" y2="68"/><text class="t" x="554" y="73" font-size="13">Out-of-band · Wi-Fi + Tailscale</text>
+<line class="adm" x1="770" y1="68" x2="796" y2="68"/><text class="t" x="804" y="73" font-size="13">Admin routing</text>
+<g><rect class="box" x="40" y="650" width="760" height="120" rx="10"/>
+<text class="q hint" x="64" y="716" font-size="14">Hover over or tap any box for addresses and firewall rules.</text></g>
+<rect class="zone" x="40" y="250" width="480" height="320" rx="12"/>
+<text class="h" x="60" y="278" font-size="15">House network</text><text class="q" x="60" y="298" font-size="12.5">roommate-owned, untrusted</text>
+<g><path class="p web" d="M230 155H296" marker-end="url(#hl-a-web)"/><path class="p web" d="M410 200V286" marker-end="url(#hl-a-web)"/><path class="p web" d="M500 315H576" marker-end="url(#hl-a-web)"/><path class="p web" d="M770 160H836" marker-end="url(#hl-a-web)"/><path class="p mc" d="M200 200L317 317" marker-end="url(#hl-a-mc)"/><path class="p mc" d="M500 345H576" marker-end="url(#hl-a-mc)"/><path class="p mc" d="M770 210H836" marker-end="url(#hl-a-mc)"/><path class="p jf" d="M240 420H576" marker-end="url(#hl-a-jf)"/><path class="p jf" d="M770 335H836" marker-end="url(#hl-a-jf)"/><path class="adm" d="M770 455H836" marker-end="url(#hl-a-ink)"/><path class="adm" d="M770 560H836" marker-end="url(#hl-a-ink)"/><path class="oob" d="M500 510H545V625H836" marker-end="url(#hl-a-ink)"/></g>
+<text class="m" x="418" y="232" font-size="12.5">443 only</text>
+<text class="m" x="222" y="236" font-size="12.5" text-anchor="end">25565</text>
+<text class="m" x="268" y="412" font-size="12.5">8096</text>
+<text class="m" x="600" y="618" font-size="12.5">out-of-band</text>
+<g class="node" tabindex="0" aria-describedby="hl-tip-1" aria-label="Internet"><rect class="box" x="40" y="110" width="190" height="90" rx="10"/><g class="ic"><circle cx="72" cy="155" r="14"/><path d="M58 155H86M72 141c-6 8-6 20 0 28M72 141c6 8 6 20 0 28"/></g><text class="h" x="98" y="150" font-size="18">Internet</text><text class="t" x="98" y="172" font-size="13">visitors, players</text><g class="tip" id="hl-tip-1"><text class="h" x="64" y="682" font-size="16">Internet</text><text class="t" x="64" y="708" font-size="13.5">Website visitors reach only Cloudflare, never the house IP directly.</text><text class="t" x="64" y="728" font-size="13.5">Minecraft players resolve justingarter.com through an SRV record to a DNS-only</text><text class="t" x="64" y="748" font-size="13.5">origin record kept current by DDNS on the web Pi.</text></g></g>
+<g class="node" tabindex="0" aria-describedby="hl-tip-2" aria-label="Cloudflare"><rect class="box" x="300" y="110" width="200" height="90" rx="10"/><path class="ic" d="M322 166h34a10 10 0 0 0 0-20 14 14 0 0 0-27-3 9 9 0 0 0-7 23z"/><text class="h" x="372" y="150" font-size="18">Cloudflare</text><text class="t" x="372" y="172" font-size="13">proxy + WAF</text><g class="tip" id="hl-tip-2"><text class="h" x="64" y="682" font-size="16">Cloudflare · proxy, TLS and WAF</text><text class="t" x="64" y="708" font-size="13.5">Full (Strict) TLS to a Cloudflare Origin CA certificate on the web Pi.</text><text class="t" x="64" y="728" font-size="13.5">WAF custom rule drops scanner paths at the edge: ~1,250 origin 404s in 37 h, then 0.</text><text class="t" x="64" y="748" font-size="13.5">OPNsense admits 443 only from Cloudflare's published ranges.</text></g></g>
+<g class="node" tabindex="0" aria-describedby="hl-tip-3" aria-label="House router"><rect class="box" x="320" y="290" width="180" height="80" rx="10"/><text class="h" x="340" y="322" font-size="16">House router</text><text class="t" x="340" y="344" font-size="13">TP-Link Archer BE9500</text><g class="tip" id="hl-tip-3"><text class="h" x="64" y="682" font-size="16">House router · 192.168.0.1</text><text class="t" x="64" y="708" font-size="13.5">Roommate-owned, no VLAN support, so segmentation lives behind it in OPNsense.</text><text class="t" x="64" y="728" font-size="13.5">Forwards exactly two ports to OPNsense's WAN at 192.168.0.254: TCP 443 and TCP 25565.</text><text class="t" x="64" y="748" font-size="13.5">Nothing in the lab may start a connection to the house network.</text></g></g>
+<g class="node" tabindex="0" aria-describedby="hl-tip-4" aria-label="House devices"><rect class="box" x="60" y="380" width="180" height="80" rx="10"/><text class="h" x="80" y="412" font-size="16">House devices</text><text class="t" x="80" y="434" font-size="13">phone, laptop, TV</text><g class="tip" id="hl-tip-4"><text class="h" x="64" y="682" font-size="16">House devices · 192.168.0.0/24</text><text class="t" x="64" y="708" font-size="13.5">Reach Jellyfin through an OPNsense port forward on 192.168.0.254:8096.</text><text class="t" x="64" y="728" font-size="13.5">Port 8096 to one VM is the only thing the house network can open in the lab.</text><text class="t" x="64" y="748" font-size="13.5">Logins are non-admin accounts with a 5-attempt lockout.</text></g></g>
+<g class="node" tabindex="0" aria-describedby="hl-tip-5" aria-label="Guest Wi-Fi"><rect class="box" x="320" y="470" width="180" height="80" rx="10"/><text class="h" x="340" y="502" font-size="16">Guest Wi-Fi</text><text class="t" x="340" y="524" font-size="13">out-of-band link</text><g class="tip" id="hl-tip-5"><text class="h" x="64" y="682" font-size="16">Out-of-band path · guest Wi-Fi + Tailscale</text><text class="t" x="64" y="708" font-size="13.5">Proxmox has an Intel AX210 on the house guest Wi-Fi with Tailscale bound to it.</text><text class="t" x="64" y="728" font-size="13.5">Tested from a phone on cellular: shut down OPNsense, Proxmox stayed reachable.</text><text class="t" x="64" y="748" font-size="13.5">A healthchecks.io heartbeat emails if this path drops.</text></g></g>
+<g class="node" tabindex="0" aria-describedby="hl-tip-6" aria-label="OPNsense gateway"><rect class="box" x="580" y="110" width="190" height="470" rx="10"/><path class="ic" d="M675 136l-16 6v11c0 10 7 17 16 21 9-4 16-11 16-21v-11z"/><text class="h" x="675" y="204" font-size="20" text-anchor="middle">OPNsense</text><text class="t" x="675" y="228" font-size="13" text-anchor="middle">VM on Proxmox</text><text class="q" x="675" y="270" font-size="12.5" text-anchor="middle">gateway for</text><text class="q" x="675" y="288" font-size="12.5" text-anchor="middle">every segment</text><text class="q" x="675" y="318" font-size="12.5" text-anchor="middle">default deny</text><text class="q" x="675" y="336" font-size="12.5" text-anchor="middle">between them</text><line x1="604" y1="500" x2="746" y2="500" style="stroke:var(--line)"/><text class="q" x="675" y="528" font-size="12.5" text-anchor="middle">5-port 802.1Q trunk</text><text class="q" x="675" y="546" font-size="12.5" text-anchor="middle">switch mgmt on VLAN 1</text><g class="tip" id="hl-tip-6"><text class="h" x="64" y="682" font-size="16">OPNsense 26.7 · VM 100 on Proxmox VE 9</text><text class="t" x="64" y="708" font-size="13.5">Router on a stick over one NIC, trunked through a TL-SG105E switch. WAN 192.168.0.254.</text><text class="t" x="64" y="728" font-size="13.5">Gateways: MGMT 10.10.10.1 · MAIN 10.10.20.1 · SERVERS 10.10.30.1 · DMZ 10.10.40.1.</text><text class="t" x="64" y="748" font-size="13.5">Switch management sits alone on VLAN 1 (172.31.0.0/24). Every host adds its own nftables.</text></g></g>
+<g class="node" tabindex="0" aria-describedby="hl-tip-7" aria-label="DMZ, VLAN 40"><rect class="box" x="840" y="110" width="320" height="150" rx="10"/><text class="h" x="864" y="142" font-size="17">DMZ · VLAN 40</text><text class="t" x="864" y="170" font-size="14">Web Pi · Caddy</text><text class="m" x="1136" y="170" font-size="12.5" text-anchor="end">443</text><text class="t" x="864" y="196" font-size="14">vm-minecraft · 2 modpacks</text><text class="m" x="1136" y="196" font-size="12.5" text-anchor="end">25565</text><text class="q" x="864" y="236" font-size="12.5">internet only · never on Tailscale</text><g class="tip" id="hl-tip-7"><text class="h" x="64" y="682" font-size="16">DMZ · VLAN 40 · 10.10.40.0/24 · static addressing only</text><text class="t" x="64" y="708" font-size="13.5">Web Pi 10.10.40.10: Raspberry Pi 5, Caddy, 443 only, Cloudflare Origin CA certificate.</text><text class="t" x="64" y="728" font-size="13.5">vm-minecraft 10.10.40.20: Debian 13, 10 GB, worlds backed up at 02:15 before the 03:00 VM backup.</text><text class="t" x="64" y="748" font-size="13.5">Reaches the internet and its own DNS only. Kept off Tailscale so a compromise can't pivot.</text></g></g>
+<g class="node" tabindex="0" aria-describedby="hl-tip-8" aria-label="SERVERS, VLAN 30"><rect class="box" x="840" y="280" width="320" height="110" rx="10"/><text class="h" x="864" y="312" font-size="17">SERVERS · VLAN 30</text><text class="t" x="864" y="340" font-size="14">vm-services · Jellyfin</text><text class="m" x="1136" y="340" font-size="12.5" text-anchor="end">8096</text><text class="q" x="864" y="370" font-size="12.5">internet only</text><g class="tip" id="hl-tip-8"><text class="h" x="64" y="682" font-size="16">SERVERS · VLAN 30 · 10.10.30.0/24</text><text class="t" x="64" y="708" font-size="13.5">vm-services 10.10.30.10: Debian 13, Docker, Jellyfin 12, CPU transcoding.</text><text class="t" x="64" y="728" font-size="13.5">8096 admitted from the admin desktop, the house network and the monitoring Pi only.</text><text class="t" x="64" y="748" font-size="13.5">Reaches the internet and its own DNS only.</text></g></g>
+<g class="node" tabindex="0" aria-describedby="hl-tip-9" aria-label="MAIN, VLAN 20"><rect class="box" x="840" y="410" width="320" height="90" rx="10"/><text class="h" x="864" y="442" font-size="17">MAIN · VLAN 20</text><text class="t" x="864" y="470" font-size="14">Admin desktop · Ansible</text><text class="q" x="1136" y="470" font-size="12.5" text-anchor="end">reaches all</text><g class="tip" id="hl-tip-9"><text class="h" x="64" y="682" font-size="16">MAIN · VLAN 20 · 10.10.20.0/24</text><text class="t" x="64" y="708" font-size="13.5">Admin desktop 10.10.20.10, pinned by a static mapping.</text><text class="t" x="64" y="728" font-size="13.5">The only segment that reaches every other segment. Runs Ansible from WSL.</text><text class="t" x="64" y="748" font-size="13.5">20 roles across two repos, secrets in an encrypted vault.</text></g></g>
+<g class="node" tabindex="0" aria-describedby="hl-tip-10" aria-label="MGMT, VLAN 10"><rect class="box" x="840" y="520" width="320" height="140" rx="10"/><text class="h" x="864" y="552" font-size="17">MGMT · VLAN 10</text><text class="t" x="864" y="580" font-size="14">Proxmox host</text><text class="t" x="864" y="606" font-size="14">Backup Pi · restic, Uptime Kuma</text><text class="q" x="864" y="640" font-size="12.5">SSH and monitoring to servers</text><g class="tip" id="hl-tip-10"><text class="h" x="64" y="682" font-size="16">MGMT · VLAN 10 · 10.10.10.0/24</text><text class="t" x="64" y="708" font-size="13.5">Proxmox 10.10.10.5: Ryzen 7 2700X, 32 GB, ZFS. Runs OPNsense and both VMs.</text><text class="t" x="64" y="728" font-size="13.5">Backup Pi 10.10.10.20: nightly VM backups into append-only restic, restore tested.</text><text class="t" x="64" y="748" font-size="13.5">Reaches SERVERS and DMZ on SSH plus specific monitoring ports.</text></g></g>
+</svg>
+      </div>
+      <div class="hl-detail" aria-hidden="true" hidden></div>
+    </figure>
+  </section>
+
+  <div class="container study">
+    <nav class="toc" aria-label="On this page">
+      <p>On this page</p>
+      <ol>
+        <li><a href="#at-a-glance"><b>01</b><span>At a glance</span></a></li>
+        <li><a href="#why-its-built-this-way"><b>02</b><span>Why It's Built This Way</span></a></li>
+        <li><a href="#the-network"><b>03</b><span>The Network</span></a></li>
+        <li><a href="#what-runs-on-it"><b>04</b><span>What Runs on It</span></a></li>
+        <li><a href="#backups-and-recovery"><b>05</b><span>Backups and Recovery</span></a></li>
+        <li><a href="#everything-is-code"><b>06</b><span>Infrastructure as Code</span></a></li>
+        <li><a href="#what-went-wrong"><b>07</b><span>What Went Wrong</span></a></li>
+        <li><a href="#verification-log"><b>08</b><span>Verification Log</span></a></li>
+        <li><a href="#whats-next"><b>09</b><span>What's Next</span></a></li>
+        <li><a href="#outcome"><b>10</b><span>Outcome</span></a></li>
+      </ol>
+    </nav>
+    <div class="study-body">
+      <section class="chapter" id="at-a-glance" data-reveal>
+        <header class="sec-bar"><span class="n">01</span><h2>At a glance</h2><span class="note"><span>Hardware and stack</span><span>9 fields</span></span></header>
+
+    <dl class="spec-grid" aria-label="Home lab at a glance">
+          <div><dt>Hypervisor</dt><dd>Proxmox VE 9 on ZFS · Ryzen 7 2700X · 32 GB · my old desktop</dd></div>
+          <div><dt>Gateway</dt><dd>OPNsense 26.7 VM · router on a stick over one network port</dd></div>
+          <div><dt>Segments</dt><dd>Five lab VLANs plus a transit link to the house network · default-deny between them</dd></div>
+          <div><dt>Services</dt><dd>Static website · Jellyfin · modded Minecraft server with two switchable modpacks</dd></div>
+          <div><dt>Internet exposure</dt><dd>Two ports: 443 through Cloudflare only, and 25565 for Minecraft</dd></div>
+          <div><dt>Automation</dt><dd>Ansible · 20 roles across two repos · encrypted vault</dd></div>
+          <div><dt>Backups</dt><dd>Every VM nightly into restic on a separate Raspberry Pi · append-only · restore tested</dd></div>
+          <div><dt>Monitoring</dt><dd>Uptime Kuma with push alerts · out-of-band heartbeat</dd></div>
+          <div><dt>Remote access</dt><dd>Tailscale · an out-of-band path that survives the firewall going down</dd></div>
+        </dl>
+      </section>
+
+      <section class="chapter" id="why-its-built-this-way" data-reveal>
+        <header class="sec-bar"><span class="n">02</span><h2>Why It's Built This Way</h2><span class="note"><span>Router can&#x27;t do VLANs</span><span>Possible move Jul 2027</span></span></header>
+    <div class="prose">
+      <p>
+        I moved into a place with roommates in September 2026. The house router
+        belongs to one of them, and it can't do VLANs. I wasn't going to
+        replace someone else's router, so the segmentation had to live behind
+        it.
+      </p>
+      <p>
+        The answer was to make the firewall a virtual machine. OPNsense runs on
+        Proxmox and treats the house network as its internet connection.
+        Everything I own sits behind it on a managed switch, and the house
+        router only forwards two ports to it.
+      </p>
+      <p>
+        The second constraint is that I might move again in July 2027. So nothing here is left to memory. Every host except the firewall is an
+        Ansible playbook, and the firewall comes back from a backup I've already
+        test-restored. The plan for moving is a playbook run and a restore, not
+        a rebuild from memory.
+      </p>
+    </div>
+      </section>
+
+      <section class="chapter" id="the-network" data-reveal>
+        <header class="sec-bar"><span class="n">03</span><h2>The Network</h2><span class="note"><span>6 segments</span><span>2 public ports</span></span></header>
+    <div class="prose">
+      <p>
+        Each segment exists for one reason, and the firewall only allows what
+        that reason needs. My desktop is the one place that can reach
+        everything. The management network can reach the servers for SSH and
+        monitoring, and nothing else. The server and DMZ networks get the
+        internet and their own DNS, and they can't start a connection to any
+        other private network.
+      </p>
+      <p>
+        Nothing in the lab can start a connection to the house network either.
+        That one's on purpose: the house network has devices on it I don't
+        control, so the lab treats it as untrusted in both directions.
+      </p>
+    </div>
+
+    <div class="data-block">
+      <p class="data-head">Network segments - what each one may reach</p>
+      <div class="table-scroll">
+        <table class="dtable">
+          <thead>
+            <tr><th scope="col">VLAN</th><th scope="col">Name</th><th scope="col">Subnet</th><th scope="col">Contains</th><th scope="col">May reach</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">1</th>  <td>SWMGMT</td>      <td class="num">172.31.0.0/24</td>  <td class="method">Switch management only, no access port</td>       <td class="method">Nothing</td></tr>
+            <tr><th scope="row">10</th> <td>MGMT</td>        <td class="num">10.10.10.0/24</td>  <td class="method">Proxmox, backup Pi</td>                           <td class="method">Internet. SERVERS and DMZ on SSH, plus specific monitoring ports</td></tr>
+            <tr><th scope="row">20</th> <td>MAIN</td>        <td class="num">10.10.20.0/24</td>  <td class="method">Admin desktop</td>                                <td class="method">Every lab segment</td></tr>
+            <tr><th scope="row">30</th> <td>SERVERS</td>     <td class="num">10.10.30.0/24</td>  <td class="method">vm-services</td>                                  <td class="method">Internet and its own gateway's DNS only</td></tr>
+            <tr><th scope="row">40</th> <td>DMZ</td>         <td class="num">10.10.40.0/24</td>  <td class="method">Web Pi 10.10.40.10, vm-minecraft 10.10.40.20</td> <td class="method">Internet and its own gateway's DNS only. Static addressing, no DHCP</td></tr>
+            <tr><th scope="row">99</th> <td>WAN transit</td> <td class="num">192.168.0.0/24</td> <td class="method">House network. OPNsense WAN 192.168.0.254</td>    <td class="method">Nothing in the lab may start a connection to the house network</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="prose">
+      <p>
+        The internet reaches exactly two things. The website is HTTPS through
+        Cloudflare only, and the firewall drops anything on 443 that isn't from
+        Cloudflare's published ranges. Minecraft is port 25565, open to anyone,
+        on a VM in the DMZ. Both public hosts are kept off my Tailscale
+        network, so a compromise of either one doesn't hand over a way into
+        the rest.
+      </p>
+      <p>
+        Every host also runs its own default-deny nftables firewall. If the
+        gateway rules were ever wrong, each host still only answers what it's
+        meant to.
+      </p>
+    </div>
+      </section>
+
+      <section class="chapter" id="what-runs-on-it" data-reveal>
+        <header class="sec-bar"><span class="n">04</span><h2>What Runs on It</h2><span class="note"><span>3 services</span></span></header>
+    <div class="prose">
+      <p>
+        This website runs on a Raspberry Pi in the DMZ. It has its own
+        write-up: <a href="self-hosted-portfolio">Self-Hosted Personal Portfolio</a>.
+      </p>
+      <p>
+        Minecraft runs on a 10 GB Debian VM in the DMZ. It hosts two modpacks
+        on different Java versions, and a switch command swaps which one is
+        live. I moved it off a Raspberry Pi, which had been capping it at a
+        6 GB heap. On the VM, the Crazy Craft pack starts in 69 seconds instead
+        of over 200. Players connect to justingarter.com with no port, through
+        an SRV record.
+      </p>
+      <p>
+        Jellyfin runs in Docker on a VM in the servers network. My TV and phone
+        are on the house network, so they reach it through a port forward on
+        the firewall that only answers on 8096 and only from the house
+        network. It transcodes on the CPU. The GPU stays as Proxmox's local
+        display on purpose, because the physical console is my way back in if
+        the network breaks.
+      </p>
+    </div>
+
+    <div class="data-block">
+      <p class="data-head">Minecraft, Raspberry Pi vs VM (Oct 2026)</p>
+      <div class="ceilings">
+        <div class="ceiling">
+          <span class="metric-num">69 s</span>
+          <span class="metric-label">Crazy Craft start on the VM</span>
+          <span class="metric-sub">was over 200 s on the Pi</span>
+        </div>
+        <div class="ceiling">
+          <span class="metric-num">8 GB</span>
+          <span class="metric-label">Server heap on the VM</span>
+          <span class="metric-sub">capped at 6 GB on the Pi</span>
+        </div>
+      </div>
+    </div>
+      </section>
+
+      <section class="chapter" id="backups-and-recovery" data-reveal>
+        <header class="sec-bar"><span class="n">05</span><h2>Backups and Recovery</h2><span class="note"><span>Nightly, append-only</span><span>Restore tested</span></span></header>
+    <div class="prose">
+      <p>
+        Every night Proxmox backs up every VM and its own configuration into
+        restic on a separate Raspberry Pi. The repository is served
+        append-only, so Proxmox can add backups but can't delete or overwrite
+        them. Only the Pi prunes, once a week.
+      </p>
+      <p>
+        The Minecraft VM backs up its own worlds at 02:15, before the 03:00
+        full backup. That way every nightly VM backup holds a clean copy of the
+        worlds, not files caught mid-write. The world backups are uncompressed
+        on purpose, so restic only stores the parts that changed.
+      </p>
+    </div>
+
+    <figure class="plate" style="margin: var(--s6) 0 0;">
+      <div style="overflow-x:auto;">
+      <svg class="bktl" viewBox="0 0 1040 200" role="img" aria-labelledby="bktl-title bktl-desc">
+        <title id="bktl-title">Nightly backup order</title>
+        <desc id="bktl-desc">A timeline from 2 a.m. to 5:30 a.m. At 02:15 the Minecraft VM backs up its worlds. At 03:00 Proxmox backs up every VM and its own configuration into restic on the backup Pi. On Sundays only, at 05:00, the backup Pi prunes and checks the repository.</desc>
+        <style>
+          .bktl { width: 100%; height: auto; display: block; }
+          @media (max-width: 700px) { .bktl { width: 720px; max-width: none; } }
+          .bktl .bt-axis { stroke: rgba(255,255,255,.18); stroke-width: 2; }
+          .bktl .bt-tick { stroke: rgba(255,255,255,.18); stroke-width: 1.5; }
+          .bktl .bt-h { font-family: 'Geist Mono', ui-monospace, Consolas, monospace; font-size: 11px; fill: #858D95; text-anchor: middle; }
+          .bktl .bt-t { font-family: 'Geist', -apple-system, 'Segoe UI', Arial, sans-serif; font-size: 16px; font-weight: 600; fill: #ECEEF0; }
+          .bktl .bt-s { font-family: 'Geist Mono', ui-monospace, Consolas, monospace; font-size: 12px; fill: #9AA2AA; }
+          .bktl .bt-night { fill: #ECEEF0; }
+          .bktl .bt-stem { stroke: #ECEEF0; stroke-width: 2; }
+          .bktl .bt-week { fill: #0F1215; stroke: #9AA2AA; stroke-width: 2; }
+          .bktl .bt-wstem { stroke: #9AA2AA; stroke-width: 2; stroke-dasharray: 5 4; }
+        </style>
+
+        <line class="bt-axis" x1="60" y1="110" x2="980" y2="110"/>
+        <line class="bt-tick" x1="60" y1="104" x2="60" y2="116"/><text class="bt-h" x="60" y="134">02:00</text>
+        <line class="bt-tick" x1="586" y1="104" x2="586" y2="116"/><text class="bt-h" x="586" y="134">04:00</text>
+        <line class="bt-tick" x1="849" y1="104" x2="849" y2="116"/><text class="bt-h" x="849" y="134">05:00</text>
+
+        <line class="bt-stem" x1="126" y1="103" x2="126" y2="70"/>
+        <circle class="bt-night" cx="126" cy="110" r="7"/>
+        <text class="bt-t" x="134" y="40">02:15 · World backup</text>
+        <text class="bt-s" x="134" y="60">vm-minecraft saves its worlds first</text>
+
+        <line class="bt-stem" x1="323" y1="117" x2="323" y2="150"/>
+        <circle class="bt-night" cx="323" cy="110" r="7"/>
+        <text class="bt-t" x="331" y="172">03:00 · Full VM backups</text>
+        <text class="bt-s" x="331" y="192">every VM and the Proxmox config into restic on the backup Pi</text>
+
+        <line class="bt-wstem" x1="849" y1="102" x2="849" y2="70"/>
+        <circle class="bt-week" cx="849" cy="110" r="7"/>
+        <text class="bt-t" x="849" y="40" text-anchor="middle">Sun 05:00 · Prune and check</text>
+        <text class="bt-s" x="849" y="60" text-anchor="middle">backup Pi only, weekly</text>
+      </svg>
+      </div>
+    </figure>
+    <div class="legend" aria-label="Timeline key">
+      <span><i style="background:#ECEEF0;width:12px;height:12px;border-radius:50%;"></i>Every night</span>
+      <span><i style="background:#0F1215;border:2px solid #9AA2AA;width:12px;height:12px;border-radius:50%;"></i>Sundays only</span>
+    </div>
+
+    <div class="prose" style="margin-top: var(--s6);">
+      <p>
+        I tested the restore before calling it done. I restored the firewall VM
+        from backup to a spare ID, booted it, and its configuration matched the
+        original exactly.
+      </p>
+      <p>
+        The out-of-band path got the same treatment. Proxmox has a second
+        connection over Wi-Fi to the house guest network, with Tailscale bound
+        to it. From my phone on cellular, I shut down the firewall VM,
+        confirmed I could still reach Proxmox, and started the firewall again.
+        A heartbeat to healthchecks.io emails me if that path ever drops.
+      </p>
+    </div>
+      </section>
+
+      <section class="chapter" id="everything-is-code" data-reveal>
+        <header class="sec-bar"><span class="n">06</span><h2>Infrastructure as Code</h2><span class="note"><span>20 roles</span><span>2 repos</span></span></header>
+    <div class="prose">
+      <p>
+        The lab is two Git repos. One holds the
+        <a href="https://github.com/justin-garter/pi-webserver-ansible">website server's playbook</a>.
+        The other holds 12 Ansible roles for everything else: the Proxmox host,
+        both VMs, the backup Pi, Docker, Jellyfin, Minecraft, backups,
+        monitoring and the traffic report. Secrets live in an encrypted vault.
+        The firewall is the one exception: its configuration comes back from
+        backup rather than from a role.
+      </p>
+      <p>
+        The test I trust is the second run. A role is done when running it
+        against a live host reports zero changes. That's how I brought the
+        Proxmox host itself under Ansible: I wrote the role to match the
+        running machine, then ran it until it reported nothing to change. The
+        network config is in the role too, but it's never applied by a routine
+        run, because a bad push there takes everything down.
+      </p>
+    </div>
+      </section>
+
+      <section class="chapter" id="what-went-wrong" data-reveal>
+        <header class="sec-bar"><span class="n">07</span><h2>What Went Wrong</h2><span class="note"><span>2 incidents</span></span></header>
+    <div class="prose">
+      <p>
+        <strong>My phone and TV couldn't load Jellyfin.</strong> After I opened
+        Jellyfin to the house network, my phone timed out while the firewall
+        logs showed the traffic arriving and being passed. The VM wasn't
+        dropping it either. The cause was an OPNsense default: on an interface
+        with a gateway, it sends replies back through that gateway instead of
+        straight to the client. Replies went to the house router, which
+        dropped them. One global setting fixed it, and I took a snapshot of the
+        firewall first so I could undo it.
+      </p>
+      <p>
+        <strong>Scanners were hammering the website.</strong> The first traffic
+        report showed about 1,250 requests for paths that don't exist, like
+        /config.json and /docker-compose.yml, in 37 hours. My fail2ban jail
+        could see them but couldn't block them, because behind Cloudflare
+        every request comes from a Cloudflare address. I moved the blocking to
+        a Cloudflare WAF rule kept in the repo and retired the jail. In the
+        hours after, scanner requests reaching the server dropped to zero.
+      </p>
+    </div>
+      </section>
+
+      <section class="chapter" id="verification-log" data-reveal>
+        <header class="sec-bar"><span class="n">08</span><h2>Verification Log</h2><span class="note"><span>8 of 10 pass</span><span>2 open</span></span></header>
+    <div class="data-block">
+      <p class="data-head">Verification log - what was tested, and how</p>
+      <div class="table-scroll">
+        <table class="dtable">
+          <thead>
+            <tr><th scope="col">Claim</th><th scope="col">How it was checked</th><th scope="col">Result</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Proxmox stays reachable with the firewall down</th>
+              <td class="method">Shut down the OPNsense VM from a phone on cellular over the out-of-band path (Sep 2026)</td>
+              <td><span class="status-pill">Pass</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Backups restore</th>
+              <td class="method">Restored the firewall VM to a spare ID and booted it (Oct 2026)</td>
+              <td><span class="status-pill">Pass, configuration identical</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Website only reachable through Cloudflare</th>
+              <td class="method">Loaded the bare home IP from a phone on cellular (Sep 2026)</td>
+              <td><span class="status-pill">Pass, times out</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Lab can't reach the house network</th>
+              <td class="method">Attempted connections from the admin desktop's segment (2026)</td>
+              <td><span class="status-pill">Pass, blocked</span></td>
+            </tr>
+            <tr>
+              <th scope="row">VMs recover unattended</th>
+              <td class="method">Rebooted each VM and checked services, mounts and firewall rules (Oct 2026)</td>
+              <td><span class="status-pill">Pass, back in about a minute</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Minecraft reachable from the internet</th>
+              <td class="method">External checker by IP and by justingarter.com (Oct 2026)</td>
+              <td><span class="status-pill">Pass</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Nightly backup order holds</th>
+              <td class="method">Checked the first night's logs: world backup at 02:20, VM backup at 03:01 (Oct 2026)</td>
+              <td><span class="status-pill">Pass</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Proxmox config matches Ansible</th>
+              <td class="method">Ran the role against the live host (Oct 2026)</td>
+              <td><span class="status-pill">Pass, zero changes</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Servers network can't reach other private networks</th>
+              <td class="method">Not yet traffic-tested</td>
+              <td><span class="status-pill in-progress">Open</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Full rebuild from backup and playbook</th>
+              <td class="method">Not yet done</td>
+              <td><span class="status-pill in-progress">Open</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+      </section>
+
+      <section class="chapter" id="whats-next" data-reveal>
+        <header class="sec-bar"><span class="n">09</span><h2>What's Next</h2><span class="note"><span>4 items</span></span></header>
+    <div class="prose">
+      <ul>
+        <li>A ZFS RAIDZ1 pool on three 6 TB drives for media.</li>
+        <li>A rebuild drill: restore a VM from backup onto a spare ID and rerun its playbook.</li>
+        <li>An internal certificate authority, so lab web interfaces stop sending logins in clear.</li>
+        <li>Local AI on the existing GPU, as the last phase.</li>
+      </ul>
+    </div>
+      </section>
+
+      <section class="chapter" id="outcome" data-reveal>
+        <header class="sec-bar"><span class="n">10</span><h2>Outcome</h2></header>
+    <div class="prose">
+      <p>
+        Everything I host runs behind a firewall I control, on a network I don't
+        own. Each service is in the segment it belongs in, every host but the
+        firewall is a playbook, and the backups have been restored, not just
+        taken. It isn't production, and a few things are still untested. But
+        the parts that are done have been checked by trying them, which is the
+        standard I hold the rest to.
+      </p>
+    </div>
+      </section>
+    </div>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <p class="footer-name">Justin Garter</p>
+        <p>Cincinnati, Ohio</p>
+      </div>
+      <div>
+        <h2>Contact</h2>
+        <ul>
+          <li><a href="mailto:garterjn@outlook.com">garterjn@outlook.com</a></li>
+          <li><a href="tel:+15139000056">513.900.0056</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Links</h2>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/justin-garter/">LinkedIn</a></li>
+          <li><a href="https://github.com/justin-garter">GitHub</a></li>
+          <li><a href="JustinGarterResume.pdf" download>Resume (PDF)</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="footer-bottom">© 2026 Justin Garter · Technical Portfolio · IT &amp; Cybersecurity, University of Cincinnati</p>
+  </div>
+</footer>
+
+</body>
+</html>
