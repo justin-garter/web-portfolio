@@ -535,3 +535,24 @@ html .hl-net .tip, html .hl-net .hint { transition: none; }
   .portrait .headshot { width: 88px; flex: none; aspect-ratio: 1; object-position: center 20%; }
   .portrait figcaption { flex-direction: column; justify-content: center; gap: 6px; padding: 0; font-size: var(--fs-small); }
 }
+
+/* Roadmap: checklists in the console's [x] style, and a neutral pill for planned work. */
+.status-pill.planned { color: var(--text-3); background: rgba(255, 255, 255, 0.03); border-color: var(--line-2); }
+.status-pill.planned::before { box-shadow: none; }
+.role-title .status-pill { margin-left: var(--s2); vertical-align: middle; }
+.role ul.checklist li { padding-left: 0; display: grid; grid-template-columns: 3.2ch 16ch minmax(0, 1fr); column-gap: var(--s2); align-items: baseline; }
+.role ul.checklist li::before { content: none; }
+.role ul.checklist .ck { font: 500 var(--fs-small) var(--mono); }
+.role ul.checklist .ck.done { color: var(--green); }
+.role ul.checklist .ck.now { color: var(--amber); }
+.role ul.checklist .ck.todo { color: var(--text-3); }
+.role ul.checklist time { font: 400 var(--fs-micro) var(--mono); color: var(--text-3); white-space: nowrap; }
+.role ul.checklist li:not(:has(> time)) { grid-template-columns: 3.2ch minmax(0, 1fr); }
+.role ul.checklist .txt { grid-column: -2; }
+.role ul.checklist.sub { grid-column: 3; margin-top: var(--s2); gap: var(--s2); font-size: var(--fs-small); }
+.skill-note a { color: var(--text-2); }
+@media (max-width: 760px) {
+  .role ul.checklist li { grid-template-columns: 3.2ch minmax(0, 1fr); }
+  .role ul.checklist time { grid-column: 2; }
+  .role ul.checklist.sub { grid-column: 2; }
+}

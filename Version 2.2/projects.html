@@ -3,13 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Justin Garter - Technical Portfolio</title>
-  <meta name="description" content="Infrastructure security: network architecture, segmentation, and system hardening across IoT, ICS, OT, and hybrid cloud environments.">
+  <title>Projects - Justin Garter</title>
+  <meta name="description" content="Hands-on networking, security, and infrastructure projects - a self-hosted web server, a Klipper printer rebuild and LAN security assessment, and an in-progress home lab.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Justin Garter">
+  <meta property="og:title" content="Projects - Justin Garter">
+  <meta property="og:description" content="Hands-on networking, security, and infrastructure projects - a self-hosted web server, a Klipper printer rebuild and LAN security assessment, and an in-progress home lab.">
+  <meta property="og:url" content="https://justingarter.com/projects">
+  <meta property="og:image" content="https://justingarter.com/og-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="627">
+  <meta property="og:image:alt" content="Justin Garter: infrastructure, networking, and cloud with a security-first mindset.">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="favicon.ico" sizes="any">
   <link rel="icon" href="favicon-32.png" type="image/png">
   <link rel="apple-touch-icon" href="favicon-180.png">
   <meta name="theme-color" content="#08090B">
-  <link rel="stylesheet" href="styles.css?v=2.0">
+  <link rel="stylesheet" href="styles.css?v=2.1">
   <script src="enhance.js?v=2.0" defer></script>
 </head>
 <body>
@@ -21,9 +31,9 @@
     <a class="site-logo" href="/">Justin<span>.Garter</span><i aria-hidden="true"></i></a>
     <nav class="site-nav" aria-label="Primary">
       <ul>
-        <li><a href="/" aria-current="page">Home</a></li>
+        <li><a href="/">Home</a></li>
         <li class="has-dropdown">
-          <a href="projects">Projects</a>
+          <a href="projects" aria-current="page">Projects</a>
           <ul class="dropdown">
             <li><a href="home-lab">Home Lab Environment</a></li>
             <li><a href="self-hosted-portfolio">Self-Hosted Personal Portfolio</a></li>
@@ -48,137 +58,21 @@
 
 <main id="main">
 
-  <section class="band">
-    <div class="container band-hero">
-      <div>
-        <span class="eyebrow">// IT &amp; Cybersecurity - University of Cincinnati</span>
-        <h1>Networking, cybersecurity, and cloud technologies&nbsp;- from coursework, <span class="nowrap">co-ops</span>, and projects.</h1>
-        <p class="lede">
-          I'm a double major in Information Technology (Networking concentration) and
-          Cybersecurity at the University of Cincinnati, graduating May 2027 with a 4.0 GPA.
-          Across four roles I've designed network architecture, automated business
-          workflows, and supported cybersecurity awareness initiatives. I'm CompTIA Security+ and
-          Microsoft Azure Fundamentals (AZ-900) certified.
-        </p>
-        <div class="hero-ctas">
-          <a class="btn btn-primary" href="projects">View Projects</a>
-          <a class="btn btn-ghost" href="JustinGarterResume.pdf" download>Download Resume</a>
-        </div>
-        <div class="readout">
-          <p class="readout-src"><span class="live-dot" aria-hidden="true"></span><b>Home lab</b><span class="src-note">live, figures from the case study</span><a href="home-lab">open →</a></p>
-          <dl>
-            <div><dd>05</dd><dt>lab VLANs, default-deny</dt></div>
-            <div><dd>20</dd><dt>Ansible roles, 2 repos</dt></div>
-            <div><dd>02</dd><dt>internet-facing ports</dt></div>
-            <div><dd>08<small>/10</small></dd><dt>checks passed, rest open</dt></div>
-          </dl>
-        </div>
-      </div>
-      <figure class="portrait">
-        <img class="headshot" src="Headshot.JPEG" alt="Justin Garter" width="500" height="700">
-        <figcaption><span>justin_garter</span><span>cincinnati, oh</span></figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <section class="container straddle">
-    <h2 class="sr-only">At a glance</h2>
-    <div class="facts">
-
-      <div class="fact">
-        <div class="fact-head">
-          <span class="eyebrow">Education</span>
-          <span class="count">03</span>
-        </div>
-        <ul>
-          <li>M.S. IT (Accelerated)</li>
-          <li>B.S. IT (Networking)</li>
-          <li>B.S. Cybersecurity</li>
-        </ul>
-        <p class="caption">Plus a Data-Driven Cybersecurity graduate certificate. Expected May 2027.</p>
-      </div>
-
-      <div class="fact">
-        <div class="fact-head">
-          <span class="eyebrow">Focus</span>
-          <span class="count">04</span>
-        </div>
-        <ul>
-          <li>Network Architecture</li>
-          <li>Segmentation &amp; Trust Boundaries</li>
-          <li>System Hardening</li>
-          <li>Automation &amp; Documentation</li>
-        </ul>
-      </div>
-
-      <div class="fact">
-        <div class="fact-head">
-          <span class="eyebrow">Certifications</span>
-          <span class="count">06</span>
-        </div>
-        <ul>
-          <li>CompTIA Security+</li>
-          <li>CompTIA Network+</li>
-          <li>Microsoft Azure Fundamentals</li>
-          <li>CompTIA ITF+</li>
-          <li>Cisco CCST Networking</li>
-          <li>Cisco CCST Cybersecurity</li>
-        </ul>
-        <p class="caption"><a href="skills">View all certifications →</a></p>
-      </div>
-
-      <div class="fact">
-        <div class="fact-head">
-          <span class="eyebrow">Roles</span>
-          <span class="count">04</span>
-        </div>
-        <ul>
-          <li>Maverick Molding Company</li>
-          <li>Shepherd Color Company</li>
-          <li>Fecon LLC</li>
-          <li>Digital Futures UCSIM</li>
-        </ul>
-        <p class="caption">Three industry, one university research.</p>
-      </div>
-
-    </div>
-  </section>
-
-  <div class="container section">
-    <div class="node-divider" aria-hidden="true">
-      <svg viewBox="0 0 1200 24" preserveAspectRatio="none" focusable="false">
-        <line x1="0" y1="12" x2="1200" y2="12" vector-effect="non-scaling-stroke" />
-        <circle cx="4" cy="12" r="4" /><circle cx="300" cy="12" r="4" />
-        <circle cx="600" cy="12" r="4" /><circle cx="900" cy="12" r="4" />
-        <circle cx="1196" cy="12" r="4" />
-      </svg>
-    </div>
-  </div>
-
-  <section class="container section about">
-    <div class="section-heading">
-      <span class="eyebrow">About</span>
-      <h2>About Me</h2>
-    </div>
-    <div class="prose">
-      <p>
-        I build and design infrastructure with a security-first mindset. I
-        specialize in network architecture, segmentation, and system hardening.
-        Automation and documentation drive every decision, so systems run
-        unattended and stay reliable over time. I've built and secured IoT, ICS,
-        and OT networks where legacy equipment and safety constraints shape every
-        security choice, and hybrid environments where on-prem and cloud have to
-        operate as one system. My goal is to work in infrastructure security.
+  <section class="band band-page">
+    <div class="container">
+      <span class="eyebrow">// Projects</span>
+      <h1>Technical Projects</h1>
+      <p class="lede">
+        Working toward a career in networking, systems, and infrastructure -
+        with a cybersecurity mindset - built by applying networking and
+        security fundamentals to real infrastructure instead of only
+        coursework.
       </p>
     </div>
   </section>
 
-  <section class="container section">
-    <div class="section-heading">
-      <span class="eyebrow">Featured Work</span>
-      <h2>Selected Projects</h2>
-    </div>
-
+  <section class="container straddle">
+    <h2 class="sr-only">All projects</h2>
     <div class="card-grid">
 
       <article class="project-card" data-glow data-reveal>
@@ -278,6 +172,7 @@
           <ul class="tag-row">
             <li>Reverse Proxy</li>
             <li>VLAN/DMZ</li>
+            <li>Ansible</li>
           </ul>
         </div>
       </article>
@@ -304,6 +199,40 @@
     </div>
   </section>
 
+  <div class="container section">
+    <div class="node-divider" aria-hidden="true">
+      <svg viewBox="0 0 1200 24" preserveAspectRatio="none" focusable="false">
+        <line x1="0" y1="12" x2="1200" y2="12" vector-effect="non-scaling-stroke" />
+        <circle cx="4" cy="12" r="4" /><circle cx="300" cy="12" r="4" />
+        <circle cx="600" cy="12" r="4" /><circle cx="900" cy="12" r="4" />
+        <circle cx="1196" cy="12" r="4" />
+      </svg>
+    </div>
+  </div>
+
+  <section class="container section">
+    <div class="section-heading">
+      <span class="eyebrow">Skills in practice</span>
+      <h2>Where these show up on the skills page</h2>
+    </div>
+    <div class="prose">
+      <p>
+        Each finished project here backs specific, arrow-marked entries on
+        <a href="skills">Skills &amp; Certifications</a>. The home lab covers
+        virtualization, firewall design, VLAN segmentation, backup and
+        recovery, and Ansible across a whole environment. The self-hosted
+        portfolio covers DMZ isolation, DNS and TLS behind a reverse proxy,
+        edge filtering, and systemd automation. The Klipper rebuild covers LAN
+        security assessment and host hardening.
+      </p>
+      <p>
+        The arrow next to a skill on that page means it was applied here, not
+        only studied - that's the project to open if you want to see it in
+        context.
+      </p>
+    </div>
+  </section>
+
 </main>
 
 <footer class="site-footer">
@@ -326,6 +255,7 @@
           <li><a href="https://www.linkedin.com/in/justin-garter/">LinkedIn</a></li>
           <li><a href="https://github.com/justin-garter">GitHub</a></li>
           <li><a href="JustinGarterResume.pdf" download>Resume (PDF)</a></li>
+          <li><a href="roadmap">Roadmap</a></li>
         </ul>
       </div>
     </div>
