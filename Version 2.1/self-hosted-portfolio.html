@@ -8,7 +8,9 @@
   <link rel="icon" href="favicon.ico" sizes="any">
   <link rel="icon" href="favicon-32.png" type="image/png">
   <link rel="apple-touch-icon" href="favicon-180.png">
-  <link rel="stylesheet" href="styles.css?v=1.8">
+  <meta name="theme-color" content="#08090B">
+  <link rel="stylesheet" href="styles.css?v=2.1">
+  <script src="enhance.js?v=2.0" defer></script>
 </head>
 <body>
 
@@ -16,7 +18,7 @@
 
 <header class="site-header">
   <div class="container">
-    <a class="site-logo" href="/">Justin<span>.Garter</span></a>
+    <a class="site-logo" href="/">Justin<span>.Garter</span><i aria-hidden="true"></i></a>
     <nav class="site-nav" aria-label="Primary">
       <ul>
         <li><a href="/">Home</a></li>
@@ -82,20 +84,20 @@
         <style>
           .netdiagram { width: 100%; height: auto; display: block; }
           @media (max-width: 700px) { .netdiagram { width: 720px; max-width: none; } }
-          .netdiagram .nd-box { fill: #FFFFFF; stroke: #C9CED3; stroke-width: 1.5; }
-          .netdiagram .nd-zone { fill: #E7F1EC; stroke: #0F5A38; stroke-width: 1.5; stroke-dasharray: 6 5; }
-          .netdiagram .nd-t { font-family: 'Space Grotesk', -apple-system, 'Segoe UI', Arial, sans-serif; font-size: 17px; font-weight: 600; fill: #111315; }
-          .netdiagram .nd-s, .netdiagram .nd-z, .netdiagram .nd-lw, .netdiagram .nd-la { font-family: 'JetBrains Mono', ui-monospace, Consolas, monospace; font-size: 12px; }
-          .netdiagram .nd-s { fill: #3B4045; }
-          .netdiagram .nd-z { font-weight: 600; fill: #0F5A38; }
-          .netdiagram .nd-lw { fill: #0F5A38; text-anchor: middle; }
-          .netdiagram .nd-la { fill: #3B4045; }
-          .netdiagram .nd-web { stroke: #0F5A38; stroke-width: 3; fill: none; }
-          .netdiagram .nd-adm { stroke: #3B4045; stroke-width: 2; stroke-dasharray: 7 5; fill: none; }
+          .netdiagram .nd-box { fill: #13161A; stroke: #6B737B; stroke-width: 1.25; }
+          .netdiagram .nd-zone { fill: rgba(255,255,255,.03); stroke: #858D95; stroke-width: 1.25; stroke-dasharray: 6 5; }
+          .netdiagram .nd-t { font-family: 'Geist', -apple-system, 'Segoe UI', Arial, sans-serif; font-size: 17px; font-weight: 600; fill: #ECEEF0; }
+          .netdiagram .nd-s, .netdiagram .nd-z, .netdiagram .nd-lw, .netdiagram .nd-la { font-family: 'Geist Mono', ui-monospace, Consolas, monospace; font-size: 12px; }
+          .netdiagram .nd-s { fill: #9AA2AA; }
+          .netdiagram .nd-z { font-weight: 500; fill: #B2B9C0; }
+          .netdiagram .nd-lw { fill: #269DD9; text-anchor: middle; }
+          .netdiagram .nd-la { fill: #9AA2AA; }
+          .netdiagram .nd-web { stroke: #269DD9; stroke-width: 3; fill: none; }
+          .netdiagram .nd-adm { stroke: #9AA2AA; stroke-width: 2; stroke-dasharray: 7 5; fill: none; }
         </style>
         <defs>
-          <marker id="nd-aw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#0F5A38"/></marker>
-          <marker id="nd-aa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#3B4045"/></marker>
+          <marker id="nd-aw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#269DD9"/></marker>
+          <marker id="nd-aa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9AA2AA"/></marker>
         </defs>
 
         <rect class="nd-zone" x="815" y="14" width="212" height="182" rx="10"/>
@@ -147,17 +149,30 @@
       </div>
     </figure>
     <div class="legend" aria-label="Diagram colour key">
-      <span><i style="background:#0F5A38;"></i>Public web traffic, HTTPS only</span>
-      <span><i style="background-image:repeating-linear-gradient(90deg,#3B4045 0 6px,transparent 6px 10px);"></i>Admin SSH</span>
-      <span><i style="background-image:repeating-linear-gradient(90deg,#0F5A38 0 5px,transparent 5px 9px);"></i>DMZ boundary</span>
+      <span><i style="background:#269DD9;"></i>Public web traffic, HTTPS only</span>
+      <span><i style="background-image:repeating-linear-gradient(90deg,#9AA2AA 0 6px,transparent 6px 10px);"></i>Admin SSH</span>
+      <span><i style="background-image:repeating-linear-gradient(90deg,#858D95 0 5px,transparent 5px 9px);"></i>DMZ boundary</span>
     </div>
   </section>
 
-  <section class="container section">
-    <div class="section-heading">
-      <span class="eyebrow">Host and stack</span>
-      <h2>Technologies Used</h2>
-    </div>
+  <div class="container study">
+    <nav class="toc" aria-label="On this page">
+      <p>On this page</p>
+      <ol>
+        <li><a href="#technologies-used"><b>01</b><span>Technologies Used</span></a></li>
+        <li><a href="#overview"><b>02</b><span>Overview</span></a></li>
+        <li><a href="#what-i-built"><b>03</b><span>What I Built</span></a></li>
+        <li><a href="#blocking-scanners-at-the-edge"><b>04</b><span>Blocking Scanners at the Edge</span></a></li>
+        <li><a href="#what-rebuilding-taught-me"><b>05</b><span>What Rebuilding Taught Me</span></a></li>
+        <li><a href="#verification-log"><b>06</b><span>Verification Log</span></a></li>
+        <li><a href="#performance"><b>07</b><span>Performance</span></a></li>
+        <li><a href="#reproducible-build"><b>08</b><span>Reproducible Build</span></a></li>
+        <li><a href="#outcome"><b>09</b><span>Outcome</span></a></li>
+      </ol>
+    </nav>
+    <div class="study-body">
+      <section class="chapter" id="technologies-used" data-reveal>
+        <header class="sec-bar"><span class="n">01</span><h2>Technologies Used</h2><span class="note"><span>Host and stack</span><span>14 fields</span></span></header>
 
     <div class="stack-icons">
       <figure><img src="Raspberry_Pi_Logo.svg" alt="">Raspberry Pi</figure>
@@ -166,30 +181,26 @@
       <figure><img src="Ansible_logo.svg" alt="">Ansible</figure>
     </div>
 
-    <table class="spec-table">
-      <caption class="sr-only">Host and stack specification</caption>
-      <tbody>
-        <tr><th scope="row">Host</th>            <td>Raspberry Pi 5 · 1 GB RAM · microSD boot</td></tr>
-        <tr><th scope="row">Operating system</th><td>Raspberry Pi OS Lite (Debian 13)</td></tr>
-        <tr><th scope="row">Web server</th>      <td>Caddy · port 443 only · Cloudflare Origin CA certificate</td></tr>
-        <tr><th scope="row">Edge</th>            <td>Cloudflare proxy · Full (Strict) TLS · DDNS on a systemd timer</td></tr>
-        <tr><th scope="row">Gateway</th>         <td>OPNsense VM on Proxmox · admits Cloudflare's address ranges only</td></tr>
-        <tr><th scope="row">Network position</th><td>Single-homed on a DMZ VLAN blocked from every private network</td></tr>
-        <tr><th scope="row">Firewall</th>        <td>nftables · hand-written · default-deny inbound</td></tr>
-        <tr><th scope="row">Edge filtering</th>  <td>Cloudflare WAF custom rule · blocks scanner paths before they reach the server</td></tr>
-        <tr><th scope="row">Management</th>      <td>SSH, key only, from two admin sources · console password as break-glass</td></tr>
-        <tr><th scope="row">Logs</th>            <td>Pulled hourly by a separate backup Pi for a traffic report · read-only, forced-command SSH key</td></tr>
-        <tr><th scope="row">Radios</th>          <td>Wi-Fi and Bluetooth disabled at the firmware layer</td></tr>
-        <tr><th scope="row">Cooling</th>         <td>Active cooler · added after thermal testing</td></tr>
-        <tr><th scope="row">Configuration</th>   <td>Ansible · 8 roles · encrypted vault</td></tr>
-        <tr><th scope="row">Source</th>          <td><a href="https://github.com/justin-garter/pi-webserver-ansible">github.com/justin-garter/pi-webserver-ansible</a></td></tr>
-      </tbody>
-    </table>
-  </section>
+    <dl class="spec-grid" aria-label="Host and stack specification">
+          <div><dt>Host</dt><dd>Raspberry Pi 5 · 1 GB RAM · microSD boot</dd></div>
+          <div><dt>Operating system</dt><dd>Raspberry Pi OS Lite (Debian 13)</dd></div>
+          <div><dt>Web server</dt><dd>Caddy · port 443 only · Cloudflare Origin CA certificate</dd></div>
+          <div><dt>Edge</dt><dd>Cloudflare proxy · Full (Strict) TLS · DDNS on a systemd timer</dd></div>
+          <div><dt>Gateway</dt><dd>OPNsense VM on Proxmox · admits Cloudflare's address ranges only</dd></div>
+          <div><dt>Network position</dt><dd>Single-homed on a DMZ VLAN blocked from every private network</dd></div>
+          <div><dt>Firewall</dt><dd>nftables · hand-written · default-deny inbound</dd></div>
+          <div><dt>Edge filtering</dt><dd>Cloudflare WAF custom rule · blocks scanner paths before they reach the server</dd></div>
+          <div><dt>Management</dt><dd>SSH, key only, from two admin sources · console password as break-glass</dd></div>
+          <div><dt>Logs</dt><dd>Pulled hourly by a separate backup Pi for a traffic report · read-only, forced-command SSH key</dd></div>
+          <div><dt>Radios</dt><dd>Wi-Fi and Bluetooth disabled at the firmware layer</dd></div>
+          <div><dt>Cooling</dt><dd>Active cooler · added after thermal testing</dd></div>
+          <div><dt>Configuration</dt><dd>Ansible · 8 roles · encrypted vault</dd></div>
+          <div><dt>Source</dt><dd><a href="https://github.com/justin-garter/pi-webserver-ansible">github.com/justin-garter/pi-webserver-ansible</a></dd></div>
+        </dl>
+      </section>
 
-  <section class="container section project-body">
-
-    <h2>Overview</h2>
+      <section class="chapter" id="overview" data-reveal>
+        <header class="sec-bar"><span class="n">02</span><h2>Overview</h2></header>
     <div class="prose">
       <p>
         This portfolio started on Wix. Self-hosting it gave me a low-stakes
@@ -201,8 +212,10 @@
         original build did.
       </p>
     </div>
+      </section>
 
-    <h2>What I Built</h2>
+      <section class="chapter" id="what-i-built" data-reveal>
+        <header class="sec-bar"><span class="n">03</span><h2>What I Built</h2></header>
     <div class="prose">
       <p>
         A static site served by Caddy on a Raspberry Pi 5 with 1 GB of memory,
@@ -245,8 +258,10 @@
         no business running on a live host.
       </p>
     </div>
+      </section>
 
-    <h2>Blocking Scanners at the Edge</h2>
+      <section class="chapter" id="blocking-scanners-at-the-edge" data-reveal>
+        <header class="sec-bar"><span class="n">04</span><h2>Blocking Scanners at the Edge</h2></header>
     <div class="prose">
       <p>
         Once the site was live I wanted to see who was actually visiting. The
@@ -305,8 +320,10 @@
         </div>
       </div>
     </div>
+      </section>
 
-    <h2>What Rebuilding Taught Me</h2>
+      <section class="chapter" id="what-rebuilding-taught-me" data-reveal>
+        <header class="sec-bar"><span class="n">05</span><h2>What Rebuilding Taught Me</h2></header>
     <div class="prose">
       <p>
         Rebuilding a server from its own documentation is the only reliable way
@@ -324,7 +341,10 @@
         headers from an untrusted host and checking what actually got logged.
       </p>
     </div>
+      </section>
 
+      <section class="chapter" id="verification-log" data-reveal>
+        <header class="sec-bar"><span class="n">06</span><h2>Verification Log</h2><span class="note"><span>9 of 9 pass</span></span></header>
     <div class="data-block">
       <p class="data-head">Verification log - what was tested, and how</p>
       <div class="table-scroll">
@@ -382,8 +402,10 @@
         </table>
       </div>
     </div>
+      </section>
 
-    <h2>Performance</h2>
+      <section class="chapter" id="performance" data-reveal>
+        <header class="sec-bar"><span class="n">07</span><h2>Performance</h2></header>
     <div class="prose">
       <p class="caption-note">
         Measured in August 2026 on the previous build, which booted from NVMe
@@ -486,8 +508,10 @@
         </div>
       </div>
     </div>
+      </section>
 
-    <h2>Reproducible Build</h2>
+      <section class="chapter" id="reproducible-build" data-reveal>
+        <header class="sec-bar"><span class="n">08</span><h2>Reproducible Build</h2></header>
     <div class="prose">
       <p>
         The host is codified as an Ansible playbook, eight roles covering the base system, SSH, firewall, web server, SSH ban
@@ -538,8 +562,10 @@
         reporting zero changes.
       </p>
     </div>
+      </section>
 
-    <h2>Outcome</h2>
+      <section class="chapter" id="outcome" data-reveal>
+        <header class="sec-bar"><span class="n">09</span><h2>Outcome</h2></header>
     <div class="prose">
       <p>
         The site is live over HTTPS through Cloudflare only, the whole
@@ -551,8 +577,9 @@
         wrong costs an afternoon rather than an outage.
       </p>
     </div>
-
-  </section>
+      </section>
+    </div>
+  </div>
 
 </main>
 
@@ -567,15 +594,16 @@
         <h2>Contact</h2>
         <ul>
           <li><a href="mailto:garterjn@outlook.com">garterjn@outlook.com</a></li>
-          <li><a href="tel:+15139000056">(513) 900-0056</a></li>
+          <li><a href="tel:+15139000056">513.900.0056</a></li>
         </ul>
       </div>
       <div>
         <h2>Links</h2>
         <ul>
           <li><a href="https://www.linkedin.com/in/justin-garter/">LinkedIn</a></li>
-          <li><a href="https://github.com/justin-garter/Navigation">GitHub</a></li>
+          <li><a href="https://github.com/justin-garter">GitHub</a></li>
           <li><a href="JustinGarterResume.pdf" download>Resume (PDF)</a></li>
+          <li><a href="roadmap">Roadmap</a></li>
         </ul>
       </div>
     </div>

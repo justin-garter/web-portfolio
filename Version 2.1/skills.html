@@ -4,11 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Skills &amp; Certifications - Justin Garter</title>
-  <meta name="description" content="Networking, security, systems, and automation skills, and the CompTIA and Microsoft certifications earned to date.">
+  <meta name="description" content="Networking, security, systems, and automation skills, and the CompTIA, Microsoft, and Cisco certifications earned to date.">
   <link rel="icon" href="favicon.ico" sizes="any">
   <link rel="icon" href="favicon-32.png" type="image/png">
   <link rel="apple-touch-icon" href="favicon-180.png">
-  <link rel="stylesheet" href="styles.css?v=1.8">
+  <meta name="theme-color" content="#08090B">
+  <link rel="stylesheet" href="styles.css?v=2.1">
+  <script src="enhance.js?v=2.0" defer></script>
 </head>
 <body>
 
@@ -16,7 +18,7 @@
 
 <header class="site-header">
   <div class="container">
-    <a class="site-logo" href="/">Justin<span>.Garter</span></a>
+    <a class="site-logo" href="/">Justin<span>.Garter</span><i aria-hidden="true"></i></a>
     <nav class="site-nav" aria-label="Primary">
       <ul>
         <li><a href="/">Home</a></li>
@@ -62,60 +64,90 @@
     <h2 class="sr-only">Technical skills</h2>
     <div class="skill-groups">
 
-      <div class="skill-group">
+      <div class="skill-group" data-reveal>
         <h3>Networking</h3>
         <ul>
           <li>Network Design, Segmentation &amp; Documentation</li>
           <li><a href="home-lab">VLAN Segmentation &amp; DMZ Isolation</a></li>
+          <li><a href="home-lab">802.1Q VLAN Trunking</a></li>
           <li><a href="home-lab">Firewall Policy &amp; Default-Deny Rulesets</a></li>
           <li><a href="home-lab">OPNsense Firewall Design (virtualized gateway)</a></li>
-          <li><a href="self-hosted-portfolio">Edge Filtering (Cloudflare WAF)</a></li>
-          <li>FortiGate, Sophos, Cisco, Meraki, Ubiquiti</li>
+          <li>FortiGate, FortiManager &amp; FortiAP</li>
+          <li>Sophos, Cisco, Meraki, Ubiquiti</li>
+          <li>Zero Trust Network Access (ZTNA)</li>
+          <li>OT Networking</li>
           <li>SD-WAN Deployment Support</li>
           <li><a href="home-lab">Remote Access VPN (WireGuard, Tailscale)</a></li>
+          <li><a href="self-hosted-portfolio">Cloudflare (WAF, Proxy, DNS)</a></li>
           <li><a href="self-hosted-portfolio">DNS, TLS &amp; Reverse Proxy</a></li>
         </ul>
       </div>
 
-      <div class="skill-group">
+      <div class="skill-group" data-reveal>
+        <h3>Identity &amp; Endpoint</h3>
+        <ul>
+          <li>Entra ID &amp; Entra Connect (hybrid identity)</li>
+          <li>Conditional Access</li>
+          <li>MFA &amp; Identity Management</li>
+          <li>Microsoft Intune</li>
+          <li>Windows Hello for Business</li>
+          <li>BitLocker &amp; LAPS</li>
+        </ul>
+      </div>
+
+      <div class="skill-group" data-reveal>
+        <h3>Systems &amp; Infrastructure</h3>
+        <ul>
+          <li>Windows Server &amp; Active Directory</li>
+          <li>Microsoft 365 Administration</li>
+          <li>Microsoft Azure</li>
+          <li>ERP Administration (Epicor, SyteLine)</li>
+          <li><a href="home-lab">Virtualization</a></li>
+          <li><a href="home-lab">Proxmox VE &amp; ZFS</a></li>
+          <li>Veeam Backup &amp; Restore Testing</li>
+          <li><a href="home-lab">Backup &amp; Recovery (restic, tested restores)</a></li>
+          <li><a href="home-lab">Monitoring &amp; Alerting (Uptime Kuma)</a></li>
+        </ul>
+      </div>
+
+      <div class="skill-group" data-reveal>
+        <h3>Linux</h3>
+        <ul>
+          <li><a href="home-lab">Linux (Debian, Raspberry Pi OS, Ubuntu, CentOS, Kali)</a></li>
+          <li><a href="self-hosted-portfolio">nftables Host Firewalls</a></li>
+          <li><a href="self-hosted-portfolio">SSH Hardening</a></li>
+          <li><a href="self-hosted-portfolio">fail2ban</a></li>
+          <li><a href="self-hosted-portfolio">Caddy Web Server</a></li>
+          <li><a href="home-lab">Docker &amp; Docker Compose</a></li>
+          <li><a href="self-hosted-portfolio">systemd Services &amp; Timers</a></li>
+        </ul>
+      </div>
+
+      <div class="skill-group" data-reveal>
+        <h3>Automation &amp; Scripting</h3>
+        <ul>
+          <li>PowerShell &amp; Bash Scripting</li>
+          <li>Python</li>
+          <li>Java</li>
+          <li><a href="self-hosted-portfolio">Ansible (Infrastructure as Code)</a></li>
+          <li>SQL &amp; Reporting (SQL Server, Power BI)</li>
+          <li>Git &amp; Version Control</li>
+          <li>Smartsheet Workflow Automation</li>
+          <li>Power Platform (Power Apps, Power Automate)</li>
+        </ul>
+      </div>
+
+      <div class="skill-group" data-reveal>
         <h3>Security &amp; Compliance</h3>
         <ul>
           <li><a href="klipper-monitoring">LAN Security Assessment &amp; Remediation</a></li>
           <li><a href="klipper-monitoring">Host Hardening &amp; Service Exposure Review</a></li>
           <li>Zero Trust &amp; ICS/OT Segmentation</li>
           <li>NIST SP 800-171, CMMC Level 2, DFARS/ITAR</li>
-          <li>PKI &amp; Internal Certificate Authority</li>
-          <li>MFA &amp; Identity Management</li>
+          <li>AD CS, PKI &amp; Internal Certificate Authority</li>
+          <li>Penetration Test Remediation</li>
+          <li>EDR &amp; Phishing Alert Triage (with MDR provider)</li>
           <li>Security Awareness Training</li>
-        </ul>
-      </div>
-
-      <div class="skill-group">
-        <h3>Systems &amp; Infrastructure</h3>
-        <ul>
-          <li>Windows Server &amp; Active Directory</li>
-          <li>Microsoft 365 Administration</li>
-          <li>Linux (Debian, Ubuntu, CentOS, Kali)</li>
-          <li>ERP Administration (Epicor SyteLine)</li>
-          <li>Microsoft Azure</li>
-          <li><a href="home-lab">Virtualization</a></li>
-          <li><a href="home-lab">Proxmox VE &amp; ZFS</a></li>
-          <li><a href="home-lab">Docker &amp; Docker Compose</a></li>
-          <li><a href="home-lab">Backup &amp; Recovery (restic, tested restores)</a></li>
-          <li><a href="home-lab">Monitoring &amp; Alerting (Uptime Kuma)</a></li>
-          <li><a href="self-hosted-portfolio">systemd Services &amp; Timers</a></li>
-        </ul>
-      </div>
-
-      <div class="skill-group">
-        <h3>Automation &amp; Scripting</h3>
-        <ul>
-          <li>PowerShell &amp; Bash Scripting</li>
-          <li>Python</li>
-          <li><a href="self-hosted-portfolio">Ansible (Infrastructure as Code)</a></li>
-          <li>SQL &amp; Reporting (SQL Server, Power BI)</li>
-          <li>Git &amp; Version Control</li>
-          <li>Power Platform Workflow Automation</li>
         </ul>
       </div>
 
@@ -142,7 +174,7 @@
 
     <div class="cert-grid">
 
-      <div class="cert">
+      <div class="cert" data-reveal>
         <h3>Microsoft Azure Fundamentals</h3>
         <div class="cert-body">
           <img class="cert-badge" src="AZ-900 Logo.png" alt="Microsoft Azure Fundamentals (AZ-900) badge">
@@ -153,7 +185,7 @@
         </div>
       </div>
 
-      <div class="cert">
+      <div class="cert" data-reveal>
         <h3>CompTIA Security+ (SY0-701)</h3>
         <div class="cert-body">
           <img class="cert-badge" src="Security+-jpg.jpg" alt="CompTIA Security+ badge">
@@ -164,7 +196,29 @@
         </div>
       </div>
 
-      <div class="cert">
+      <div class="cert" data-reveal>
+        <h3>Cisco Certified Support Technician: Networking</h3>
+        <div class="cert-body">
+          <img class="cert-badge" src="CCST-Networking.png" alt="Cisco CCST Networking badge">
+          <div class="cert-meta">
+            <span class="status-pill">Earned April 2023</span>
+            <a href="https://www.credly.com/badges/beeb708f-5828-4071-b491-c6668eab7881/public_url" target="_blank" rel="noopener">Verify on Credly ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="cert" data-reveal>
+        <h3>Cisco Certified Support Technician: Cybersecurity</h3>
+        <div class="cert-body">
+          <img class="cert-badge" src="CCST-Cybersecurity.png" alt="Cisco CCST Cybersecurity badge">
+          <div class="cert-meta">
+            <span class="status-pill">Earned April 2023</span>
+            <a href="https://www.credly.com/badges/ec5a7dc2-f980-4e0c-ba58-04ae3521bb07/public_url" target="_blank" rel="noopener">Verify on Credly ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="cert" data-reveal>
         <h3>CompTIA Network+ (N10-007)</h3>
         <div class="cert-body">
           <img class="cert-badge" src="Network+-jpg.jpg" alt="CompTIA Network+ badge">
@@ -175,7 +229,7 @@
         </div>
       </div>
 
-      <div class="cert">
+      <div class="cert" data-reveal>
         <h3>CompTIA IT Fundamentals+</h3>
         <div class="cert-body">
           <img class="cert-badge" src="ITF+ Logo Certified.jpg" alt="CompTIA IT Fundamentals+ badge">
@@ -187,6 +241,7 @@
       </div>
 
     </div>
+    <p class="skill-note">Next on the list: CCNA, MD-102, and AZ-104. <a href="roadmap">See the roadmap →</a></p>
   </section>
 
 </main>
@@ -202,15 +257,16 @@
         <h2>Contact</h2>
         <ul>
           <li><a href="mailto:garterjn@outlook.com">garterjn@outlook.com</a></li>
-          <li><a href="tel:+15139000056">(513) 900-0056</a></li>
+          <li><a href="tel:+15139000056">513.900.0056</a></li>
         </ul>
       </div>
       <div>
         <h2>Links</h2>
         <ul>
           <li><a href="https://www.linkedin.com/in/justin-garter/">LinkedIn</a></li>
-          <li><a href="https://github.com/justin-garter/Navigation">GitHub</a></li>
+          <li><a href="https://github.com/justin-garter">GitHub</a></li>
           <li><a href="JustinGarterResume.pdf" download>Resume (PDF)</a></li>
+          <li><a href="roadmap">Roadmap</a></li>
         </ul>
       </div>
     </div>
